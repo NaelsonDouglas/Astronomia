@@ -59,6 +59,7 @@
 
     .cell-content { display: block; width: 100%; min-height: 50px; padding: 4px; outline: none; font-size: 8.5pt; line-height: 1.4; word-break: break-word; }
     .cell-content:focus { background: #f4f8ff; }
+    .col-comp .cell-content { line-height: 1.9; }
 
     /* ── Date cell ── */
     .date-cell { padding: 4px; display: flex; flex-direction: column; gap: 3px; min-height: 50px; }
@@ -97,7 +98,7 @@
       border-radius: 3px; cursor: pointer; font-size: 7.5pt; padding: 2px 6px; font-family: Arial, sans-serif;
     }
     .hab-edit-btn:hover { background: #e8f0fb; }
-    .hab-print { display: none; font-size: 8.5pt; line-height: 1.5; word-break: break-word; }
+    .hab-print { display: none; font-size: 8.5pt; line-height: 1.9; word-break: break-word; white-space: pre-line; }
 
     /* ── Modal ── */
     .modal-overlay {
@@ -429,7 +430,7 @@
         chip.appendChild(rm);
         chips.appendChild(chip);
       });
-      printDiv.textContent = codes.join('; ');
+      printDiv.textContent = codes.join('\n');
     }
 
     // ── Date cell ──
