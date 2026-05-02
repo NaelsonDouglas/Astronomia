@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Ensino — Química — 2º Bimestre 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #c8c8c8; font-family: Arial, sans-serif; font-size: 10pt; color: #000; }
+
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #333; padding: 7px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .toolbar-btn { border: none; padding: 6px 18px; font-size: 12px; font-family: Arial, sans-serif; border-radius: 4px; cursor: pointer; }
+    .btn-print { background: #1e4d8c; color: #fff; }
+    .btn-print:hover { background: #163a6b; }
+    .btn-toggle { background: #888; color: #fff; }
+    .btn-toggle.active { background: #e8a020; }
+    .toolbar-sep { color: #666; font-size: 11px; }
+
+    .page-wrapper { margin-top: 46px; display: flex; flex-direction: column; align-items: center; padding: 24px 0 48px; }
+
+    .page { width: 210mm; min-height: 297mm; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.35); margin-bottom: 24px; overflow: hidden; }
+
+    .page-header { text-align: center; padding: 8mm 15mm 5mm; }
+    .header-logos { display: inline-flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 4px; }
+    .header-logo-brasao  { height: 46px; object-fit: contain; }
+    .header-logo-alagoas { height: 40px; object-fit: contain; }
+    .header-secretaria, .header-escola, .header-plano { font-size: 11pt; font-weight: bold; margin: 1px 0; }
+
+    .page-content { padding: 5mm 15mm 0; }
+
+    .info-line { font-size: 10pt; margin-bottom: 3mm; line-height: 1.6; text-align: center; }
+    .info-line .lbl { font-weight: bold; }
+    .info-line .val { outline: none; border-bottom: 1px solid #999; min-width: 60px; display: inline-block; padding: 0 3px; }
+    .info-line .val:focus { background: #f4f8ff; border-bottom-color: #1e4d8c; }
+    .info-line .gap { display: inline-block; width: 10mm; }
+
+    #tema-integrador-wrap { margin-bottom: 4mm; }
+    #tema-integrador-wrap.hidden { display: none; }
+    .tema-line { font-size: 10pt; font-weight: bold; text-align: center; }
+    .tema-line .val { font-weight: normal; outline: none; min-width: 60px; display: inline; }
+    .tema-line .val:focus { background: #fffef0; }
+
+    .plan-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 4mm; margin-top: 4mm; }
+    .plan-table th { background: #fff; color: #000; font-size: 8pt; font-weight: bold; text-align: center; padding: 5px 4px; border: 1px solid #000; vertical-align: middle; line-height: 1.3; }
+    .plan-table td { border: 1px solid #555; padding: 0; vertical-align: top; }
+    .plan-table td.td-actions { text-align: center; vertical-align: middle; background: #fafafa; border-color: #ccc; }
+
+    .cell-content { display: block; width: 100%; min-height: 50px; padding: 4px 4px; outline: none; font-size: 8.5pt; line-height: 1.4; word-break: break-word; }
+    .cell-content:focus { background: #f4f8ff; }
+
+    .date-cell { padding: 4px; display: flex; flex-direction: column; gap: 3px; min-height: 50px; }
+    .ch-input, .date-input { width: 100%; border: 1px solid #ccc; border-radius: 3px; padding: 2px 4px; font-family: Arial, sans-serif; font-size: 8.5pt; background: #fff; box-sizing: border-box; }
+    .ch-input:focus, .date-input:focus { outline: none; border-color: #1e4d8c; background: #f4f8ff; }
+    .day-label { font-size: 8.5pt; color: #333; min-height: 13px; }
+    .date-fmt { display: none !important; font-size: 8.5pt; white-space: pre-line; }
+
+    .col-dia      { width: 15%; }
+    .col-comp     { width: 14%; }
+    .col-tematica { width: 24%; }
+    .col-hab      { width: 19%; }
+    .col-recursos { width: 24%; }
+    .col-actions  { width: 4%; }
+
+    .btn-remove-row { background: none; border: 1px solid #c00; color: #c00; border-radius: 3px; cursor: pointer; font-size: 11px; padding: 2px 5px; line-height: 1; }
+    .btn-remove-row:hover { background: #ffe8e8; }
+    .add-row-bar { margin-top: 0; }
+    .btn-add-row { background: #1e4d8c; color: #fff; border: none; border-radius: 4px; padding: 5px 14px; font-size: 11px; cursor: pointer; }
+    .btn-add-row:hover { background: #163a6b; }
+
+    @media print {
+      body { background: none; }
+      .toolbar { display: none; }
+      .page-wrapper { margin-top: 0; padding: 0; background: none; }
+      .page { width: 210mm; min-height: 297mm; box-shadow: none; margin: 0; }
+      @page { size: A4 portrait; margin: 0; }
+      .col-actions, .td-actions, .add-row-bar { display: none !important; }
+      .date-input { display: none !important; }
+      .date-fmt { display: block !important; }
+      .info-line .val:focus, .tema-line .val:focus, .cell-content:focus { background: none !important; }
+      .info-line .val { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="toolbar-btn btn-print" onclick="window.print()">Salvar como PDF</button>
+    <button class="toolbar-btn btn-toggle" id="btn-tema" onclick="toggleTema()">Tema Integrador</button>
+    <span class="toolbar-sep">— mostrar/ocultar campo opcional</span>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="page">
+      <div class="page-header">
+        <div class="header-logos">
+          <img class="header-logo-brasao"  src="../../../../html_template/ozoria/brasao-ozoria.jpg"  alt="Brasão Ozória">
+          <img class="header-logo-alagoas" src="../../../../html_template/ozoria/logo-alagoas.jpg"   alt="Alagoas Governo">
+        </div>
+        <div class="header-secretaria">Secretaria de Estado da Educação</div>
+        <div class="header-escola">Escola Estadual Ozória de Moura Lima</div>
+        <div class="header-plano">Plano de Ensino <span id="ano-field" contenteditable="true" style="outline:none;">2026</span> &nbsp;—&nbsp; <span id="bim-field" contenteditable="true" style="outline:none;">2º</span> Bimestre</div>
+      </div>
+
+      <div class="page-content">
+        <div class="info-line">
+          <span class="lbl">Professor(a):</span>
+          <span id="prof-field" class="val" contenteditable="true">Poliana Conceição</span>
+          <span class="gap"></span>
+          <span class="lbl">Disciplina:</span>
+          <span id="disc-field" class="val" contenteditable="true">Química — Separação de Misturas</span>
+        </div>
+
+        <div id="tema-integrador-wrap" class="hidden">
+          <div class="tema-line">
+            <span class="lbl">TEMA INTEGRADOR:</span>
+            <span class="val" contenteditable="true"></span>
+          </div>
+        </div>
+
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th class="col-dia">DIA / CARGA HORÁRIA</th>
+              <th class="col-comp">COMPONENTE CURRICULAR</th>
+              <th class="col-tematica">TEMÁTICA / OBJETO DO CONHECIMENTO</th>
+              <th class="col-hab">HABILIDADES</th>
+              <th class="col-recursos">RECURSOS / ESTRATÉGIAS UTILIZADAS / ATIVIDADES</th>
+              <th class="col-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+
+        <div class="add-row-bar">
+          <button class="btn-add-row" onclick="addRow()">+ Adicionar linha</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DAYS = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+
+    const AULAS = [
+      {
+        date: '2026-05-04', ch: 1,
+        comp: 'Química',
+        tematica: 'Introdução às misturas: homogêneas e heterogêneas. Catação como método de separação manual.',
+        hab: 'EM13CNT201; EM13CNT202',
+        recursos: 'Estratégia: pergunta disparadora com potes de água+sal e água+areia. Atividade: separação de feijão com pedrinhas por catação em grupos.'
+      },
+      {
+        date: '2026-05-11', ch: 1,
+        comp: 'Química',
+        tematica: 'Peneiração (diferença de tamanho de partículas) e Ventilação/Levigação (diferença de densidade).',
+        hab: 'EM13CNT201; EM13CNT202',
+        recursos: 'Estratégia: comparação dos princípios. Atividade: estações — peneiração de areia+farinha e ventilação de serragem+areia.'
+      },
+      {
+        date: '2026-05-18', ch: 1,
+        comp: 'Química',
+        tematica: 'Decantação: sedimentação sólido-líquido e separação líquido-líquido com funil de separação.',
+        hab: 'EM13CNT201; EM13CNT202',
+        recursos: 'Estratégia: demonstração com copo água+areia em repouso e funil com água+óleo. Atividade: observação de mistura de 3 fases e planejamento da separação.'
+      },
+      {
+        date: '2026-05-25', ch: 1,
+        comp: 'Química',
+        tematica: 'Sifonação: transferência de líquido sobrenadante sem disturbar sedimento. Princípio de pressão atmosférica.',
+        hab: 'EM13CNT201; EM13CNT301',
+        recursos: 'Estratégia: demonstração passo a passo. Atividade: desafio de transferir água colorida com menor contaminação de areia usando mangueira.'
+      },
+      {
+        date: '2026-06-01', ch: 1,
+        comp: 'Química',
+        tematica: 'Centrifugação: aceleração da sedimentação por força centrífuga. Aplicações médicas e industriais.',
+        hab: 'EM13CNT201; EM13CNT301',
+        recursos: 'Estratégia: conexão com hemograma e máquina de lavar. Atividade: demonstração com garrafa PET girada manualmente comparada a copo em repouso.'
+      },
+      {
+        date: '2026-06-08', ch: 1,
+        comp: 'Química',
+        tematica: 'Destilação simples: separação por diferença de ponto de ebulição — evaporação, condensação e coleta.',
+        hab: 'EM13CNT202; EM13CNT301',
+        recursos: 'Estratégia: demonstração com chaleira de água salgada e tampa fria. Alunos provam o destilado (sem sal) como evidência.'
+      },
+      {
+        date: '2026-06-15', ch: 1,
+        comp: 'Química',
+        tematica: 'Destilação fracionada: coluna de fracionamento. Destilação do petróleo e seus derivados (GLP, gasolina, diesel, querosene, asfalto).',
+        hab: 'EM13CNT202; EM13CNT301',
+        recursos: 'Estratégia: tabela de frações do petróleo por ponto de ebulição. Atividade: ordenar derivados e identificar produtos cotidianos por fração.'
+      },
+      {
+        date: '2026-07-13', ch: 1,
+        comp: 'Química',
+        tematica: 'Cristalização por evaporação e por resfriamento. Solubilidade e saturação. Salinas e purificação industrial.',
+        hab: 'EM13CNT202; EM13CNT301',
+        recursos: 'Estratégia: retomada pós-recesso. Atividade: preparar prato com solução saturada de sal para observar cristalização ao longo da semana.'
+      },
+      {
+        date: '2026-07-20', ch: 1,
+        comp: 'Química',
+        tematica: 'Extração por solvente (café descafeinado, óleos vegetais). Separação magnética (minério de ferro, reciclagem).',
+        hab: 'EM13CNT202; EM13CNT301',
+        recursos: 'Estratégia: demonstrações simultâneas. Atividade: separação de limalha de ferro da areia com ímã; extração visual com água+óleo.'
+      },
+      {
+        date: '2026-07-27', ch: 1,
+        comp: 'Química',
+        tematica: 'Revisão geral: todos os métodos de separação de misturas.',
+        hab: 'EM13CNT201; EM13CNT202; EM13CNT301',
+        recursos: 'Estratégia: mapa mental coletivo. Atividade: quiz de 10 questões + desafio de separar mistura complexa (areia+sal+limalha+água+óleo) planejando a sequência de métodos.'
+      }
+    ];
+
+    function fmtISO(iso) {
+      if (!iso) return '';
+      const [y, m, d] = iso.split('-');
+      return `${d}/${m}/${y}`;
+    }
+
+    function createDateCell(iso, ch) {
+      const td = document.createElement('td');
+      td.className = 'col-dia';
+      const wrap = document.createElement('div');
+      wrap.className = 'date-cell';
+
+      const picker = document.createElement('input');
+      picker.type = 'date';
+      picker.className = 'date-input';
+      if (iso) picker.value = iso;
+
+      const dayLabel = document.createElement('div');
+      dayLabel.className = 'day-label';
+
+      const dateFmt = document.createElement('div');
+      dateFmt.className = 'date-fmt';
+
+      const chInput = document.createElement('input');
+      chInput.type = 'number';
+      chInput.className = 'ch-input';
+      chInput.min = '1';
+      chInput.step = '1';
+      chInput.value = ch || 1;
+      chInput.title = 'Carga horária (horas inteiras)';
+
+      function update() {
+        const v = picker.value;
+        const carga = chInput.value ? chInput.value + 'H' : '';
+        if (v) {
+          const dayName = DAYS[new Date(v + 'T12:00:00').getDay()];
+          dayLabel.textContent = dayName;
+          dateFmt.textContent = dayName + '\n' + fmtISO(v) + (carga ? '\n' + carga : '');
+        } else {
+          dayLabel.textContent = '';
+          dateFmt.textContent = carga;
+        }
+      }
+
+      picker.addEventListener('change', update);
+      chInput.addEventListener('input', update);
+      update();
+
+      wrap.appendChild(picker);
+      wrap.appendChild(dayLabel);
+      wrap.appendChild(dateFmt);
+      wrap.appendChild(chInput);
+      td.appendChild(wrap);
+      return td;
+    }
+
+    function createRow(data) {
+      const tr = document.createElement('tr');
+
+      tr.appendChild(createDateCell(data ? data.date : null, data ? data.ch : 1));
+
+      const textCols = ['col-comp', 'col-tematica', 'col-hab', 'col-recursos'];
+      const textKeys = ['comp', 'tematica', 'hab', 'recursos'];
+      textCols.forEach((cls, i) => {
+        const td = document.createElement('td');
+        td.className = cls;
+        const div = document.createElement('div');
+        div.className = 'cell-content';
+        div.contentEditable = 'true';
+        if (data) div.textContent = data[textKeys[i]] || '';
+        td.appendChild(div);
+        tr.appendChild(td);
+      });
+
+      const tdAct = document.createElement('td');
+      tdAct.className = 'td-actions col-actions';
+      const btn = document.createElement('button');
+      btn.className = 'btn-remove-row';
+      btn.textContent = '✕';
+      btn.title = 'Remover linha';
+      btn.onclick = () => {
+        if (document.querySelectorAll('#table-body tr').length > 1) tr.remove();
+      };
+      tdAct.appendChild(btn);
+      tr.appendChild(tdAct);
+      return tr;
+    }
+
+    function addRow(data) {
+      document.getElementById('table-body').appendChild(createRow(data || null));
+    }
+
+    function toggleTema() {
+      const wrap = document.getElementById('tema-integrador-wrap');
+      const btn  = document.getElementById('btn-tema');
+      const hidden = wrap.classList.toggle('hidden');
+      btn.classList.toggle('active', !hidden);
+    }
+
+    (function init() {
+      AULAS.forEach(a => addRow(a));
+    })();
+  </script>
+
+</body>
+</html>

@@ -103,9 +103,14 @@ Cada escola tem seu template em `html_template/<escola>/template.html`.
 - CSS embutido (sem dependências externas)
 
 **Ozória** (`html_template/ozoria/template.html`):
-- Placeholder — template será fornecido em breve
+- Layout A4 retrato com brasão e logo Alagoas
+- Tabela bimestral interativa (linhas adicionáveis/removíveis)
+- Tema Integrador opcional (oculto por padrão)
+- Campos editáveis: Professor(a), Disciplina, Bimestre, Ano
 
-Ao gerar HTMLs de uma aula, aplique o template da escola alvo e salve o resultado em `aulas_html/<escola>/NNN-slug.html`.
+Para Ozória, gera-se **um único HTML por bimestre** (não um por aula), pré-preenchido com todas as aulas em linhas da tabela. Salvar em `aulas_html/ozoria/plano-<bimestre>-<ano>.html`.
+
+Para Fernandina, gera-se **um HTML por aula**, salvo em `aulas_html/fernandina/NNN-slug.html`.
 
 ## README
 
@@ -116,6 +121,73 @@ Ao adicionar uma nova aula ou disciplina, atualize o `README.md` para refletir a
 ## Fluxo de trabalho típico
 
 1. Criar o arquivo `.md` em `<disciplina>/<turma>/aulas/NNN-slug.md`
-2. Para cada escola alvo, gerar o HTML em `<disciplina>/<turma>/aulas_html/<escola>/NNN-slug.html` usando o template correspondente
-3. Atualizar o `index.html` dentro da pasta da escola, se existir
+2. Para Fernandina: gerar `aulas_html/fernandina/NNN-slug.html` usando o template
+3. Para Ozória: gerar/atualizar `aulas_html/ozoria/plano-<bimestre>-<ano>.html` com os dados do bimestre
 4. Atualizar o `README.md` na raiz com o novo link
+
+---
+
+## Geração de Planos de Aula
+
+Use esta seção como receita ao criar um novo conjunto de planos a partir de parâmetros fornecidos.
+
+### Parâmetros necessários
+
+| Parâmetro | Exemplo |
+|-----------|---------|
+| `disciplina` | `quimica` (nome da pasta) |
+| `turma` | `serie_01` |
+| `escola(s)` | `ozoria`, `fernandina` ou ambas |
+| `períodos letivos` | `04/05/2026–19/06/2026`, `07/07/2026–28/07/2026` |
+| `recesso(s)` | `20/06/2026–06/07/2026` |
+| `dia da semana` | `segunda-feira` |
+| `duração por aula` | `1H` |
+| `tópicos` | lista ordenada de conteúdos |
+
+### Algoritmo de distribuição de datas
+
+1. Para cada período letivo, listar todas as datas que caem no dia da semana especificado.
+2. Remover as datas que caem dentro de algum recesso.
+3. Resultado: lista ordenada de datas de aula.
+4. Distribuir os tópicos em ordem pela lista de datas:
+   - Se **tópicos > datas**: agrupar os tópicos mais simples ou relacionados na mesma aula.
+   - Se **datas > tópicos**: a última data recebe uma aula de revisão geral.
+5. A primeira aula pode incluir introdução ao tema geral antes do primeiro tópico específico.
+
+### Estrutura de arquivos a criar
+
+```
+<disciplina>/<turma>/
+  aulas/
+    001-slug.md
+    002-slug.md
+    ...
+  aulas_html/
+    fernandina/   (um .html por aula, se escola Fernandina for alvo)
+    ozoria/       (um .html por bimestre, se escola Ozória for alvo)
+```
+
+### HTML Ozória pré-preenchido
+
+O arquivo HTML da Ozória deve ser baseado em `html_template/ozoria/template.html` e ter os dados populados via array JS no `<script>`:
+
+```js
+const AULAS = [
+  {
+    date: 'YYYY-MM-DD',   // para o date picker
+    ch: 1,                // carga horária (inteiro)
+    comp: 'Química',      // componente curricular
+    tematica: '...',      // temática/objeto do conhecimento
+    hab: '...',           // habilidades (códigos BNCC)
+    recursos: '...'       // recursos/estratégias/atividades
+  },
+  // ...
+];
+```
+
+Os campos de cabeçalho (Professor, Disciplina, Bimestre, Ano) devem ser pré-preenchidos com `textContent` ou `value` diretamente no HTML.
+
+### O que atualizar após criar os arquivos
+
+- `README.md`: adicionar seção para a nova disciplina/turma com tabela de sumário e links para os `.md`
+- Se existir `index.html` dentro da pasta da escola: adicionar links para os novos HTMLs

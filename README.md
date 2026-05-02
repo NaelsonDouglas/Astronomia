@@ -65,7 +65,30 @@ disciplina/
 
 ---
 
-## Blocos Temáticos
+## Química — 1ª Série
+
+**Período:** 2º Bimestre 2026 (04/05 – 27/07) | **Frequência:** 1 aula por semana (segundas-feiras) | **Duração:** 1 hora por aula  
+**Professora:** Poliana Conceição  
+**Bloco temático:** Separação de Misturas
+
+### Sumário de Aulas
+
+| # | Arquivo | Título | Data |
+|---|---------|--------|------|
+| 1 | [001-introducao-misturas-e-catacao.md](quimica/serie_01/aulas/001-introducao-misturas-e-catacao.md) | Introdução às Misturas + Catação | 04/05/2026 |
+| 2 | [002-peneiracao-e-ventilacao.md](quimica/serie_01/aulas/002-peneiracao-e-ventilacao.md) | Peneiração e Ventilação | 11/05/2026 |
+| 3 | [003-decantacao.md](quimica/serie_01/aulas/003-decantacao.md) | Decantação | 18/05/2026 |
+| 4 | [004-sifonacao.md](quimica/serie_01/aulas/004-sifonacao.md) | Sifonação | 25/05/2026 |
+| 5 | [005-centrifugacao.md](quimica/serie_01/aulas/005-centrifugacao.md) | Centrifugação | 01/06/2026 |
+| 6 | [006-destilacao-simples.md](quimica/serie_01/aulas/006-destilacao-simples.md) | Destilação Simples | 08/06/2026 |
+| 7 | [007-destilacao-fracionada.md](quimica/serie_01/aulas/007-destilacao-fracionada.md) | Destilação Fracionada | 15/06/2026 |
+| 8 | [008-cristalizacao.md](quimica/serie_01/aulas/008-cristalizacao.md) | Cristalização | 13/07/2026 |
+| 9 | [009-extracao-e-separacao-magnetica.md](quimica/serie_01/aulas/009-extracao-e-separacao-magnetica.md) | Extração e Separação Magnética | 20/07/2026 |
+| 10 | [010-revisao-separacao-de-misturas.md](quimica/serie_01/aulas/010-revisao-separacao-de-misturas.md) | Revisão Geral — Separação de Misturas | 27/07/2026 |
+
+---
+
+## Astronomia — Blocos Temáticos
 
 | Bloco | Aulas | Período |
 |-------|-------|---------|
