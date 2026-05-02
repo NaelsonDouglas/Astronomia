@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos de Aula — E.E. Ozória de Moura Lima</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: Arial, sans-serif; background: #eef3fb; color: #111; min-height: 100vh; }
+
+    .hero {
+      background: #1e4d8c; color: #fff;
+      padding: 28px 40px 24px;
+    }
+    .hero h1 { font-size: 20pt; font-weight: bold; margin-bottom: 4px; }
+    .hero p  { font-size: 11pt; opacity: .8; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 60px; }
+
+    .section-title {
+      font-size: 13pt; font-weight: bold; color: #1e4d8c;
+      margin: 36px 0 14px; padding-bottom: 6px;
+      border-bottom: 2px solid #c6d8f0;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+    .card {
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow .15s;
+    }
+    .card:hover { box-shadow: 0 3px 14px rgba(0,0,0,.18); }
+
+    .card-top { padding: 16px 16px 10px; flex: 1; }
+
+    .escola-badge {
+      display: inline-block; font-size: 9pt; font-weight: bold;
+      padding: 2px 9px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .escola-ozoria    { background: #ddeaff; color: #1e4d8c; }
+    .escola-fernandina { background: #e8f7ed; color: #1a6b37; }
+
+    .card-disciplina { font-size: 13pt; font-weight: bold; color: #111; margin-bottom: 2px; }
+    .card-turma      { font-size: 10pt; color: #555; margin-bottom: 8px; }
+    .card-titulo     { font-size: 10pt; color: #333; line-height: 1.45; }
+    .card-periodo    { font-size: 9pt; color: #888; margin-top: 8px; }
+
+    .card-footer {
+      padding: 10px 16px;
+      border-top: 1px solid #eee;
+      display: flex; justify-content: flex-end;
+    }
+
+    .btn-open {
+      background: #1e4d8c; color: #fff; border: none;
+      border-radius: 4px; padding: 7px 18px; font-size: 11pt;
+      cursor: pointer; font-family: Arial, sans-serif; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-open:hover { background: #163a6b; }
+
+    .empty { color: #aaa; font-size: 11pt; font-style: italic; padding: 12px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Planos de Aula</h1>
+    <p>Escola Estadual Ozória de Moura Lima &nbsp;·&nbsp; 2026</p>
+  </div>
+
+  <div class="container" id="app"></div>
+
+  <script>
+    // ── Adicione novos planos aqui ──────────────────────────────────────────
+    const PLANOS = [
+      {
+        disciplina: 'Química',
+        turma:      '1ª Série (1-01 M/V)',
+        escola:     'Ozória',
+        titulo:     'Separação de Misturas',
+        periodo:    '2º Bimestre 2026',
+        href:       'quimica/serie_01/aulas_html/ozoria/plano-2bimestre-2026.html',
+      },
+      {
+        disciplina: 'Astronomia',
+        turma:      '1ª Série',
+        escola:     'Fernandina',
+        titulo:     '35 aulas — do Sistema Solar à Exploração Espacial',
+        periodo:    '2026',
+        href:       'astronomia/serie_01/aulas_html/fernandina/index.html',
+      },
+    ];
+    // ───────────────────────────────────────────────────────────────────────
+
+    function escolaClass(escola) {
+      return escola.toLowerCase() === 'ozória' || escola.toLowerCase() === 'ozoria'
+        ? 'escola-ozoria' : 'escola-fernandina';
+    }
+
+    function renderCard(p) {
+      return `
+        <div class="card">
+          <div class="card-top">
+            <span class="escola-badge ${escolaClass(p.escola)}">${p.escola}</span>
+            <div class="card-disciplina">${p.disciplina}</div>
+            <div class="card-turma">${p.turma}</div>
+            <div class="card-titulo">${p.titulo}</div>
+            <div class="card-periodo">${p.periodo}</div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-open" href="${p.href}">Abrir</a>
+          </div>
+        </div>`;
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+
+      // Group by escola
+      const grupos = {};
+      PLANOS.forEach(p => {
+        if (!grupos[p.escola]) grupos[p.escola] = [];
+        grupos[p.escola].push(p);
+      });
+
+      let html = '';
+      for (const escola of Object.keys(grupos)) {
+        html += `<div class="section-title">${escola}</div>`;
+        html += `<div class="grid">`;
+        grupos[escola].forEach(p => { html += renderCard(p); });
+        html += `</div>`;
+      }
+
+      if (!PLANOS.length) html = '<p class="empty">Nenhum plano cadastrado.</p>';
+      app.innerHTML = html;
+    }
+
+    render();
+  </script>
+
+</body>
+</html>
