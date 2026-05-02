@@ -182,6 +182,40 @@
 
     .cell-content:focus { background: #f4f8ff; }
 
+    /* ── Date cell ── */
+    .date-cell {
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-height: 50px;
+    }
+
+    .ch-input, .date-input {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 2px 4px;
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    .ch-input:focus, .date-input:focus {
+      outline: none;
+      border-color: #1e4d8c;
+      background: #f4f8ff;
+    }
+
+    .day-label {
+      font-size: 8.5pt;
+      color: #333;
+      min-height: 13px;
+    }
+
+    .date-fmt  { display: none !important; font-size: 8.5pt; white-space: pre-line; }
+
     /* Column widths — must sum to 100% minus actions col */
     .col-dia      { width: 15%; }
     .col-comp     { width: 14%; }
@@ -242,6 +276,9 @@
       .cell-content:focus { background: none !important; }
 
       .info-line .val { border-bottom: none; }
+
+      .date-input { display: none !important; }
+      .date-fmt   { display: block !important; }
     }
   </style>
 </head>
@@ -249,7 +286,7 @@
 
   <div class="toolbar">
     <button class="toolbar-btn btn-print" onclick="window.print()">Salvar como PDF</button>
-    <button class="toolbar-btn btn-toggle active" id="btn-tema" onclick="toggleTema()">Tema Integrador</button>
+    <button class="toolbar-btn btn-toggle" id="btn-tema" onclick="toggleTema()">Tema Integrador</button>
     <span class="toolbar-sep">— mostrar/ocultar campo opcional</span>
   </div>
 
@@ -279,7 +316,7 @@
         </div>
 
         <!-- Tema Integrador (optional) -->
-        <div id="tema-integrador-wrap">
+        <div id="tema-integrador-wrap" class="hidden">
           <div class="tema-line">
             <span class="lbl">TEMA INTEGRADOR:</span>
             <span class="val" contenteditable="true"></span>
@@ -310,9 +347,73 @@
   </div>
 
   <script>
+    const DAYS = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+
+    function fmtISO(iso) {
+      if (!iso) return '';
+      const [y, m, d] = iso.split('-');
+      return `${d}/${m}/${y}`;
+    }
+
+    function createDateCell() {
+      const td = document.createElement('td');
+      td.className = 'col-dia';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'date-cell';
+
+      // Date picker (top)
+      const picker = document.createElement('input');
+      picker.type = 'date';
+      picker.className = 'date-input';
+
+      // Day name label (auto-updated, visible on screen)
+      const dayLabel = document.createElement('div');
+      dayLabel.className = 'day-label';
+
+      // Formatted date for print (hidden on screen)
+      const dateFmt = document.createElement('div');
+      dateFmt.className = 'date-fmt';
+
+      // Carga horária (bottom) — inteiro positivo
+      const ch = document.createElement('input');
+      ch.type = 'number';
+      ch.className = 'ch-input';
+      ch.min = '1';
+      ch.step = '1';
+      ch.value = '1';
+      ch.title = 'Carga horária (horas inteiras)';
+
+      function update() {
+        const iso = picker.value;
+        const carga = ch.value ? ch.value + 'H' : '';
+        if (iso) {
+          const dayName = DAYS[new Date(iso + 'T12:00:00').getDay()];
+          dayLabel.textContent = dayName;
+          dateFmt.textContent  = dayName + '\n' + fmtISO(iso) + (carga ? '\n' + carga : '');
+        } else {
+          dayLabel.textContent = '';
+          dateFmt.textContent  = carga;
+        }
+      }
+
+      picker.addEventListener('change', update);
+      ch.addEventListener('input', update);
+
+      wrap.appendChild(picker);
+      wrap.appendChild(dayLabel);
+      wrap.appendChild(dateFmt);
+      wrap.appendChild(ch);
+      td.appendChild(wrap);
+      return td;
+    }
+
     function createRow() {
       const tr = document.createElement('tr');
-      ['col-dia','col-comp','col-tematica','col-hab','col-recursos'].forEach(cls => {
+
+      tr.appendChild(createDateCell());
+
+      ['col-comp','col-tematica','col-hab','col-recursos'].forEach(cls => {
         const td = document.createElement('td');
         td.className = cls;
         const div = document.createElement('div');
