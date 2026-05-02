@@ -191,3 +191,35 @@ Os campos de cabeçalho (Professor, Disciplina, Bimestre, Ano) devem ser pré-pr
 
 - `README.md`: adicionar seção para a nova disciplina/turma com tabela de sumário e links para os `.md`
 - Se existir `index.html` dentro da pasta da escola: adicionar links para os novos HTMLs
+
+---
+
+### Regras para o campo "Recursos / Estratégias / Atividades"
+
+O campo `recursos` (e a seção "Roteiro da Aula" nos `.md`) deve descrever **somente atividades viáveis sem laboratório** — a escola não dispõe de recursos materiais específicos. Evitar: experimentos com reagentes, vidraria, equipamentos de laboratório, materiais que precisem ser providenciados.
+
+**Estratégias permitidas:**
+- Aula expositiva dialogada (com quadro branco ou projetor)
+- Debate e discussão em sala
+- Atividade impressa (exercícios, classificação, identificação)
+- Mapa conceitual ou esquema no caderno/quadro
+- Leitura e interpretação de texto
+- Resolução de exercícios
+
+**Estilo de escrita:** uma ou duas frases corridas, sem marcadores. Descrever a estratégia principal, a transição/conexão com o conteúdo e a atividade de consolidação. Ver exemplos:
+
+> Aula expositiva dialogada utilizando o quadro branco, seguida de atividade de "Caça ao Objeto" na escola para identificar matéria, corpo e objeto, finalizando com mapa conceitual coletivo.
+
+> Contextualização a partir de exemplo do cotidiano e conceituação da lei de Lavoisier. Atividade impressa de identificação e classificação de situações cotidianas.
+
+> Aula expositiva dialogada, com auxílio de projetor, para caracterização de sistemas homogêneos. Debate em sala sobre propriedades e aplicações práticas de soluções no cotidiano.
+
+---
+
+### Regra de avaliação e reavaliação
+
+Em todo bimestre:
+- **Penúltima aula** = Avaliação bimestral escrita. `tematica`: "Avaliação Bimestral — [tema do bimestre]". `recursos`: "Avaliação bimestral escrita abrangendo todo o conteúdo do bimestre."
+- **Última aula** = Reavaliação. `tematica`: "Reavaliação Bimestral". `recursos`: "Reavaliação bimestral para os alunos que não atingiram a média na avaliação anterior."
+
+Ao calcular o número de aulas de conteúdo, subtrair 2 do total de datas disponíveis para reservar as últimas duas para avaliação e reavaliação.

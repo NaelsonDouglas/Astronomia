@@ -82,9 +82,9 @@ disciplina/
 | 5 | [005-centrifugacao.md](quimica/serie_01/aulas/005-centrifugacao.md) | Centrifugação | 01/06/2026 |
 | 6 | [006-destilacao-simples.md](quimica/serie_01/aulas/006-destilacao-simples.md) | Destilação Simples | 08/06/2026 |
 | 7 | [007-destilacao-fracionada.md](quimica/serie_01/aulas/007-destilacao-fracionada.md) | Destilação Fracionada | 15/06/2026 |
-| 8 | [008-cristalizacao.md](quimica/serie_01/aulas/008-cristalizacao.md) | Cristalização | 13/07/2026 |
-| 9 | [009-extracao-e-separacao-magnetica.md](quimica/serie_01/aulas/009-extracao-e-separacao-magnetica.md) | Extração e Separação Magnética | 20/07/2026 |
-| 10 | [010-revisao-separacao-de-misturas.md](quimica/serie_01/aulas/010-revisao-separacao-de-misturas.md) | Revisão Geral — Separação de Misturas | 27/07/2026 |
+| 8 | [008-cristalizacao-extracao-separacao-magnetica.md](quimica/serie_01/aulas/008-cristalizacao-extracao-separacao-magnetica.md) | Cristalização, Extração e Separação Magnética | 13/07/2026 |
+| 9 | [009-avaliacao.md](quimica/serie_01/aulas/009-avaliacao.md) | Avaliação Bimestral | 20/07/2026 |
+| 10 | [010-reavaliacao.md](quimica/serie_01/aulas/010-reavaliacao.md) | Reavaliação Bimestral | 27/07/2026 |
 
 ---
 
