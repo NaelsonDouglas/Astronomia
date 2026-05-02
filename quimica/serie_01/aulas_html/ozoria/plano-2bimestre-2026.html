@@ -45,7 +45,8 @@
 
     .plan-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 4mm; margin-top: 4mm; }
     .plan-table th { background: #fff; color: #000; font-size: 8pt; font-weight: bold; text-align: center; padding: 5px 4px; border: 1px solid #000; vertical-align: middle; line-height: 1.3; }
-    .plan-table td { border: 1px solid #555; padding: 0; vertical-align: top; }
+    .plan-table tr { break-inside: avoid; page-break-inside: avoid; }
+    .plan-table td { border: 1px solid #555; padding: 0; vertical-align: top; break-inside: avoid; page-break-inside: avoid; }
     .plan-table td.td-actions { text-align: center; vertical-align: middle; background: #fafafa; border-color: #ccc; }
 
     .cell-content { display: block; width: 100%; min-height: 50px; padding: 4px 4px; outline: none; font-size: 8.5pt; line-height: 1.4; word-break: break-word; }
@@ -55,7 +56,7 @@
     .ch-input, .date-input { width: 100%; border: 1px solid #ccc; border-radius: 3px; padding: 2px 4px; font-family: Arial, sans-serif; font-size: 8.5pt; background: #fff; box-sizing: border-box; }
     .ch-input:focus, .date-input:focus { outline: none; border-color: #1e4d8c; background: #f4f8ff; }
     .day-label { font-size: 8.5pt; color: #333; min-height: 13px; }
-    .date-fmt { display: none !important; font-size: 8.5pt; white-space: pre-line; }
+    .date-fmt { display: none !important; font-size: 8.5pt; white-space: pre-line; line-height: 1.8; }
 
     .col-dia      { width: 15%; }
     .col-comp     { width: 14%; }
@@ -147,70 +148,70 @@
     const AULAS = [
       {
         date: '2026-05-04', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Introdução às misturas: homogêneas e heterogêneas. Catação como método de separação manual.',
         hab: 'EM13CNT201; EM13CNT202',
         recursos: 'Aula expositiva dialogada com quadro branco para introduzir os conceitos de mistura homogênea e heterogênea com exemplos do cotidiano. Atividade de consolidação: os alunos classificam exemplos escritos no quadro e constroem coletivamente um mapa conceitual.'
       },
       {
         date: '2026-05-11', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Peneiração (diferença de tamanho de partículas) e Ventilação/Levigação (diferença de densidade).',
         hab: 'EM13CNT201; EM13CNT202',
         recursos: 'Aula expositiva dialogada com esquemas comparativos no quadro branco. Debate sobre situações do cotidiano que utilizam peneiração e ventilação. Atividade de fixação: exercício escrito de classificação dos métodos por princípio de separação.'
       },
       {
         date: '2026-05-18', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Decantação: sedimentação sólido-líquido e separação líquido-líquido.',
         hab: 'EM13CNT201; EM13CNT202',
         recursos: 'Contextualização a partir de imagens e exemplos do cotidiano (chuva e lama, óleo e água). Aula expositiva com esquema das fases da decantação no quadro. Debate sobre aplicações domésticas e industriais, incluindo tratamento de água.'
       },
       {
         date: '2026-05-25', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Sifonação: transferência do líquido sobrenadante sem disturbar o sedimento. Princípio da pressão atmosférica.',
         hab: 'EM13CNT201; EM13CNT301',
         recursos: 'Aula expositiva dialogada conectando sifonação à decantação com esquema no quadro. Debate sobre aplicações em aquários, tanques de combustível e vinicultura. Atividade de consolidação: exercício escrito comparando decantação e sifonação.'
       },
       {
         date: '2026-06-01', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Centrifugação: aceleração da sedimentação por força centrífuga. Aplicações médicas e industriais.',
         hab: 'EM13CNT201; EM13CNT301',
         recursos: 'Aula expositiva dialogada com analogias cotidianas (centrífuga da máquina de lavar, hemograma). Debate sobre a importância da centrifugação na medicina e na indústria alimentícia. Atividade de fixação: comparação escrita entre decantação, sifonação e centrifugação.'
       },
       {
         date: '2026-06-08', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Destilação simples: separação por diferença de ponto de ebulição — evaporação, condensação e coleta.',
         hab: 'EM13CNT202; EM13CNT301',
         recursos: 'Aula expositiva dialogada com esquema do aparelho de destilação simples desenhado no quadro. Contextualização com desalinização e obtenção de água potável. Debate sobre a importância do processo para o acesso à água no semiárido nordestino.'
       },
       {
         date: '2026-06-15', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Destilação fracionada: coluna de fracionamento. Frações do petróleo e seus derivados (GLP, gasolina, querosene, diesel, asfalto).',
         hab: 'EM13CNT202; EM13CNT301',
         recursos: 'Aula expositiva dialogada com auxílio de esquema da torre de destilação. Sistematização por meio de tabela das frações do petróleo por ponto de ebulição. Os alunos identificam, em debate, quais produtos do cotidiano provêm de cada fração.'
       },
       {
         date: '2026-07-13', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Cristalização (evaporação e resfriamento), extração por solvente e separação magnética.',
         hab: 'EM13CNT202; EM13CNT301',
         recursos: 'Retomada pós-recesso com aula expositiva dialogada abordando os três métodos a partir de exemplos industriais: salinas do Nordeste, café descafeinado e mineração de ferro em Carajás. Debate sobre sustentabilidade e relevância econômica regional. Atividade de consolidação: exercício escrito de identificação e comparação dos métodos.'
       },
       {
         date: '2026-07-20', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Avaliação Bimestral — Separação de Misturas.',
         hab: 'EM13CNT201; EM13CNT202; EM13CNT301',
         recursos: 'Avaliação bimestral escrita abrangendo todos os métodos de separação de misturas estudados no bimestre.'
       },
       {
         date: '2026-07-27', ch: 1,
-        comp: 'Química',
+        comp: 'Química\n1-01 M/V',
         tematica: 'Reavaliação Bimestral.',
         hab: 'EM13CNT201; EM13CNT202; EM13CNT301',
         recursos: 'Reavaliação bimestral para os alunos que não atingiram a média na avaliação anterior.'
@@ -286,7 +287,7 @@
         const div = document.createElement('div');
         div.className = 'cell-content';
         div.contentEditable = 'true';
-        if (data) div.textContent = data[textKeys[i]] || '';
+        if (data) div.innerHTML = (data[textKeys[i]] || '').replace(/\n/g, '<br>');
         td.appendChild(div);
         tr.appendChild(td);
       });
