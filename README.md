@@ -15,6 +15,33 @@ disciplina/
 
 ---
 
+## Criar um novo plano de aula
+
+Para gerar um novo conjunto de planos, envie as informações abaixo:
+
+```
+Professora:
+Disciplina:
+Turma: (ex: 1-01)
+Turno: (M / V / M/V)
+Escola: (Ozória / Fernandina)
+
+Período letivo:
+  Início:
+  Fim:
+  Recesso (se houver): de ___ até ___
+
+Dia da semana das aulas:
+Duração de cada aula: (ex: 1H)
+
+Tópicos em ordem:
+1.
+2.
+3.
+```
+
+---
+
 ## Astronomia — 1ª Série
 
 **Período:** Maio a Dezembro de 2026 | **Frequência:** 1 aula por semana | **Duração:** 2 horas por aula  
