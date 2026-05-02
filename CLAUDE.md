@@ -144,7 +144,7 @@ Use esta seção como receita ao criar um novo conjunto de planos a partir de pa
 | `duração por aula` | `1H` |
 | `tópicos` | lista ordenada de conteúdos |
 | `turma_codigo` | `1-01` (série-turma, ex: `2-03` = 2ª série turma 3) |
-| `turno` | `M` = matutino · `V` = vespertino · `M/V` = ambos |
+| `turno` | `M` = matutino · `V` = vespertino · `I` = integral · `M/V` = ambos |
 | `professora` | nome completo (pré-preenche o campo Professor(a)) |
 
 O campo `comp` (componente curricular) no HTML Ozória deve ser preenchido com:

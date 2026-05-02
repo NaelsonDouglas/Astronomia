@@ -23,7 +23,7 @@ Para gerar um novo conjunto de planos, envie as informações abaixo:
 Professora:
 Disciplina:
 Turma: (ex: 1-01)
-Turno: (M / V / M/V)
+Turno: (M / V / I / M/V)
 Escola: (Ozória / Fernandina)
 
 Período letivo:
