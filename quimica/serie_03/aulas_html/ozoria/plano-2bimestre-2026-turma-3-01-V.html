@@ -115,6 +115,7 @@
 
   <div class="toolbar">
     <button class="toolbar-btn btn-print" onclick="window.print()">Salvar como PDF</button>
+    <button onclick="_clearEdits()" style="background:#666;color:#fff;border:none;padding:6px 14px;font-size:12px;border-radius:4px;cursor:pointer;font-family:inherit;margin-left:4px">Limpar edições</button>
     <button class="toolbar-btn btn-toggle" id="btn-tema" onclick="toggleTema()">Tema Integrador</button>
     <span class="toolbar-sep">— mostrar/ocultar campo opcional</span>
   </div>
@@ -409,5 +410,33 @@
     (function init() { AULAS.forEach(a => addRow(a)); })();
   </script>
 
+
+<script>
+(function(){
+  var K='_pe:'+location.pathname, T=null;
+  function save(){
+    var s={};
+    document.querySelectorAll('[contenteditable="true"]').forEach(function(e,i){s['e'+i]=e.innerHTML;});
+    try{localStorage.setItem(K,JSON.stringify(s));}catch(x){}
+  }
+  function restore(){
+    try{
+      var r=localStorage.getItem(K);
+      if(!r)return;
+      var s=JSON.parse(r);
+      document.querySelectorAll('[contenteditable="true"]').forEach(function(e,i){
+        if(s['e'+i]!=null)e.innerHTML=s['e'+i];
+      });
+    }catch(x){}
+  }
+  document.addEventListener('DOMContentLoaded',restore);
+  document.addEventListener('input',function(){clearTimeout(T);T=setTimeout(save,400);});
+  window._clearEdits=function(){
+    if(confirm('Apagar todas as edições salvas nesta página?')){
+      localStorage.removeItem(K);location.reload();
+    }
+  };
+})();
+</script>
 </body>
 </html>

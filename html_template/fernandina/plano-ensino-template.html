@@ -9,7 +9,7 @@
 
     body {
       background: #c8c8c8;
-      font-family: Arial, sans-serif;
+      font-family: 'Times New Roman', Times, serif;
       font-size: 11pt;
       color: #000;
     }
@@ -21,7 +21,7 @@
     }
     .btn-print {
       background: #1e4d8c; color: #fff; border: none;
-      padding: 6px 18px; font-size: 12px; font-family: Arial, sans-serif;
+      padding: 6px 18px; font-size: 12px; font-family: 'Times New Roman', Times, serif;
       border-radius: 4px; cursor: pointer;
     }
     .btn-print:hover { background: #163a6b; }
@@ -92,13 +92,6 @@
     }
     .id-value:focus { background: #f8fbff; border-bottom-color: #1e4d8c; }
 
-    /* ── Section divider ── */
-    .section-divider {
-      border: none;
-      border-top: 1px solid #bbb;
-      margin: 4mm 0 3mm;
-    }
-
     /* ── Content sections ── */
     .section { margin-bottom: 4mm; }
 
@@ -107,6 +100,8 @@
       font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 2mm;
+      break-after: avoid;
+      page-break-after: avoid;
     }
 
     .section-body {
@@ -181,7 +176,7 @@
     .btn-add-row {
       background: #555; color: #fff; border: none;
       border-radius: 4px; padding: 5px 14px;
-      font-size: 11px; font-family: Arial, sans-serif; cursor: pointer;
+      font-size: 11px; font-family: 'Times New Roman', Times, serif; cursor: pointer;
     }
     .btn-add-row:hover { background: #333; }
 
@@ -190,9 +185,8 @@
       body { background: none; }
       .toolbar, .add-row-bar, .td-actions { display: none !important; }
       .page-wrapper { margin-top: 0; padding: 0; background: none; }
-      .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; }
+      .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; padding: 0; }
       @page { size: A4 portrait; margin: 15mm; }
-      .page { padding: 0; }
       .section-body:focus, .id-value:focus, .cell:focus { background: none !important; }
       .id-value { border-bottom: none; }
     }
@@ -252,7 +246,6 @@
         </div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Ementa -->
       <div class="section">
@@ -260,7 +253,6 @@
         <div class="section-body tall" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Objetivo Geral -->
       <div class="section">
@@ -268,7 +260,6 @@
         <div class="section-body medium" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Objetivos Específicos -->
       <div class="section">
@@ -276,7 +267,6 @@
         <div class="section-body medium" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Conteúdo Programático -->
       <div class="section">
@@ -284,7 +274,6 @@
         <div class="section-body tall" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Metodologia -->
       <div class="section">
@@ -292,7 +281,6 @@
         <div class="section-body medium" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Recursos -->
       <div class="section">
@@ -300,7 +288,6 @@
         <div class="section-body short" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Avaliação -->
       <div class="section">
@@ -308,7 +295,6 @@
         <div class="section-body medium" contenteditable="true"></div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Cronograma -->
       <div class="section">
@@ -332,7 +318,6 @@
         </div>
       </div>
 
-      <hr class="section-divider">
 
       <!-- Referências -->
       <div class="section">

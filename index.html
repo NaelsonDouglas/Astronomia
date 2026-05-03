@@ -66,6 +66,16 @@
     .btn-open:hover { background: #163a6b; }
 
     .empty { color: #aaa; font-size: 11pt; font-style: italic; padding: 12px 0; }
+
+    .section-title-ensino {
+      font-size: 13pt; font-weight: bold; color: #1a6b37;
+      margin: 36px 0 14px; padding-bottom: 6px;
+      border-bottom: 2px solid #b6e0c4;
+    }
+    .section-title-ensino:first-child { margin-top: 0; }
+
+    .card-ensino { border-left: 4px solid #1a6b37; }
+    .card-ensino .card-disciplina { color: #1a6b37; }
   </style>
 </head>
 <body>
@@ -103,6 +113,7 @@
         titulo:     'Plano de Ensino Anual — 2026',
         periodo:    '2026',
         href:       'astronomia/serie_01/plano_ensino/fernandina/plano-ensino-2026.html',
+        tipo:       'ensino-anual',
       },
       {
         disciplina: 'Química',
@@ -169,6 +180,15 @@
         href:       'tac/serie_02/aulas_html/fernandina/index.html',
       },
       {
+        disciplina: 'TAC',
+        turma:      '2ª Série (2-01 I)',
+        escola:     'Fernandina',
+        titulo:     'Plano de Ensino Anual — 2026',
+        periodo:    '2026',
+        href:       'tac/serie_02/plano_ensino/fernandina/plano-ensino-2026.html',
+        tipo:       'ensino-anual',
+      },
+      {
         disciplina: 'Química',
         turma:      '1ª Série (1-01 M/V)',
         escola:     'Ozória-Seduc',
@@ -227,8 +247,9 @@
     }
 
     function renderCard(p) {
+      const extra = p.tipo === 'ensino-anual' ? ' card-ensino' : '';
       return `
-        <div class="card">
+        <div class="card${extra}">
           <div class="card-top">
             <span class="escola-badge ${escolaClass(p.escola)}">${p.escola}</span>
             <div class="card-disciplina">${p.disciplina}</div>
@@ -245,14 +266,25 @@
     function render() {
       const app = document.getElementById('app');
 
-      // Group by escola
+      const ensino = PLANOS.filter(p => p.tipo === 'ensino-anual');
+      const aulas  = PLANOS.filter(p => p.tipo !== 'ensino-anual');
+
+      let html = '';
+
+      // ── Planos de Ensino Anual ──
+      if (ensino.length) {
+        html += `<div class="section-title-ensino">Planos de Ensino Anual</div>`;
+        html += `<div class="grid">`;
+        ensino.forEach(p => { html += renderCard(p); });
+        html += `</div>`;
+      }
+
+      // ── Planos de Aula por escola ──
       const grupos = {};
-      PLANOS.forEach(p => {
+      aulas.forEach(p => {
         if (!grupos[p.escola]) grupos[p.escola] = [];
         grupos[p.escola].push(p);
       });
-
-      let html = '';
       for (const escola of Object.keys(grupos)) {
         html += `<div class="section-title">${escola}</div>`;
         html += `<div class="grid">`;
