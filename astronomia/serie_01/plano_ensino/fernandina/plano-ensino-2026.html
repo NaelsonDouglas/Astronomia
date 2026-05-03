@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Ensino Anual — Astronomia</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #c8c8c8;
+      font-family: Arial, sans-serif;
+      font-size: 11pt;
+      color: #000;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #333; padding: 7px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .btn-print {
+      background: #1e4d8c; color: #fff; border: none;
+      padding: 6px 18px; font-size: 12px; font-family: Arial, sans-serif;
+      border-radius: 4px; cursor: pointer;
+    }
+    .btn-print:hover { background: #163a6b; }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      margin-top: 44px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 0 48px;
+    }
+
+    .page {
+      width: 210mm;
+      max-width: 100%;
+      min-height: 297mm;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,.35);
+      margin-bottom: 24px;
+      padding: 10mm 15mm 15mm;
+    }
+
+    /* ── School header ── */
+    .school-header {
+      text-align: center;
+      margin-bottom: 6mm;
+    }
+    .school-header img {
+      height: 80px;
+      display: block;
+      margin: 0 auto 3mm;
+    }
+    .school-name {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-bottom: 5mm;
+    }
+    .doc-type {
+      font-size: 14pt;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      margin-bottom: 6mm;
+    }
+
+    /* ── Identification block ── */
+    .id-block {
+      margin-bottom: 5mm;
+      font-size: 11pt;
+      line-height: 2;
+    }
+    .id-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 10mm;
+      align-items: baseline;
+    }
+    .id-field {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+    .id-label { font-weight: bold; white-space: nowrap; }
+    .id-value {
+      outline: none;
+      border-bottom: 1px solid #999;
+      min-width: 40px;
+      padding: 0 3px;
+      font-size: 11pt;
+    }
+    .id-value:focus { background: #f8fbff; border-bottom-color: #1e4d8c; }
+
+    /* ── Section divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #bbb;
+      margin: 4mm 0 3mm;
+    }
+
+    /* ── Content sections ── */
+    .section { margin-bottom: 4mm; }
+
+    .section-title {
+      font-size: 11pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .section-body {
+      outline: none;
+      font-size: 11pt;
+      line-height: 1.6;
+      text-align: justify;
+      min-height: 20mm;
+      padding: 1mm 0;
+      display: block;
+      white-space: pre-wrap;
+    }
+    .section-body:focus { background: #f8fbff; }
+
+    .section-body.tall   { min-height: 40mm; }
+    .section-body.medium { min-height: 30mm; }
+    .section-body.short  { min-height: 20mm; }
+
+    /* ── Cronograma ── */
+    .crono-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2mm;
+      font-size: 10.5pt;
+    }
+    .crono-table th {
+      background: #f0f0f0;
+      font-weight: bold;
+      font-size: 10pt;
+      padding: 5px 7px;
+      border: 1px solid #666;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .crono-table td {
+      border: 1px solid #888;
+      padding: 0;
+      vertical-align: top;
+    }
+    .crono-table td.td-actions {
+      text-align: center;
+      vertical-align: middle;
+      background: #fafafa;
+      border-color: #ccc;
+      width: 28px;
+    }
+    .crono-table tr { break-inside: avoid; page-break-inside: avoid; }
+    .crono-table td .cell {
+      display: block;
+      outline: none;
+      min-height: 14mm;
+      padding: 5px 7px;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      text-align: justify;
+      white-space: pre-wrap;
+    }
+    .crono-table td .cell:focus { background: #f8fbff; }
+
+    .btn-remove-row {
+      background: none; border: 1px solid #c00; color: #c00;
+      border-radius: 3px; cursor: pointer; font-size: 11px;
+      padding: 2px 5px; line-height: 1;
+    }
+    .btn-remove-row:hover { background: #ffe8e8; }
+
+    .add-row-bar { margin-top: 2mm; }
+    .btn-add-row {
+      background: #555; color: #fff; border: none;
+      border-radius: 4px; padding: 5px 14px;
+      font-size: 11px; font-family: Arial, sans-serif; cursor: pointer;
+    }
+    .btn-add-row:hover { background: #333; }
+
+    /* ── Print ── */
+    @media print {
+      body { background: none; }
+      .toolbar, .add-row-bar, .td-actions { display: none !important; }
+      .page-wrapper { margin-top: 0; padding: 0; background: none; }
+      .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; }
+      @page { size: A4 portrait; margin: 15mm; }
+      .page { padding: 0; }
+      .section-body:focus, .id-value:focus, .cell:focus { background: none !important; }
+      .id-value { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-print" onclick="window.print()">Salvar como PDF</button>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="page">
+
+      <!-- Cabeçalho -->
+      <div class="school-header">
+        <img src="./logo-fernandina.jpg" alt="Logo Escola Fernandina Malta">
+        <div class="school-name">Escola Estadual Fernandina Malta</div>
+        <div class="doc-type">PLANO DE ENSINO ANUAL</div>
+      </div>
+
+      <!-- Identificação -->
+      <div class="id-block">
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Professor/a:</span>
+            <span class="id-value" contenteditable="true">Poliana Conceição</span>
+          </div>
+        </div>
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Curso:</span>
+            <span class="id-value" contenteditable="true">Ensino Fundamental regular</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Disciplina:</span>
+            <span class="id-value" contenteditable="true">Astronomia</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Série:</span>
+            <span class="id-value" contenteditable="true">8º Ano</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Turno:</span>
+            <span class="id-value" contenteditable="true">I</span>
+          </div>
+        </div>
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Carga horária:</span>
+            <span class="id-value" contenteditable="true">1 aula semanal</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Ano letivo:</span>
+            <span class="id-value" contenteditable="true">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Ementa -->
+      <div class="section">
+        <div class="section-title">Ementa</div>
+        <div class="section-body tall" contenteditable="true">Estudo sistemático dos fundamentos da Astronomia, contemplando a evolução histórica da ciência astronômica desde as civilizações antigas até a era espacial contemporânea. Abrange a estrutura e composição do Sistema Solar, os movimentos e características da Lua, a natureza das estrelas e das galáxias, a história da exploração espacial e a relação entre fenômenos astronômicos e o cotidiano humano. A disciplina integra observação, leitura de imagens científicas e reflexão sobre o lugar da Terra e da humanidade no universo, articulando conhecimento científico, história da ciência e consciência planetária.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Objetivo Geral -->
+      <div class="section">
+        <div class="section-title">Objetivo Geral</div>
+        <div class="section-body medium" contenteditable="true">Desenvolver nos estudantes a compreensão dos principais fenômenos e objetos astronômicos, articulando o conhecimento científico com a observação do céu, a história da ciência e os impactos da astronomia na vida cotidiana, estimulando a curiosidade intelectual, o pensamento crítico e o senso de pertencimento ao universo.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Objetivos Específicos -->
+      <div class="section">
+        <div class="section-title">Objetivos Específicos</div>
+        <div class="section-body medium" contenteditable="true">• Conhecer a história da Astronomia desde as civilizações antigas até a era espacial, compreendendo como o conhecimento científico evolui ao longo do tempo.
+• Compreender a estrutura e os movimentos do Sistema Solar, identificando as características físicas dos planetas, luas, asteroides e cometas.
+• Explicar os fenômenos relacionados à Lua: fases, eclipses solar e lunar, e influência nas marés.
+• Reconhecer as características do Sol e de outras estrelas, compreendendo o ciclo de vida estelar.
+• Identificar constelações e compreender a escala do universo, da Via Láctea às galáxias distantes.
+• Conhecer os marcos históricos da exploração espacial e as missões científicas em curso.
+• Relacionar fenômenos astronômicos — como estações do ano e calendários — com a organização da vida cotidiana e cultural humana.
+• Desenvolver habilidades de leitura de imagens astronômicas, mapas celestes e textos de divulgação científica.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Conteúdo Programático -->
+      <div class="section">
+        <div class="section-title">Conteúdo Programático</div>
+        <div class="section-body tall" contenteditable="true">1º BIMESTRE — Contextualização Histórica
+A Astronomia na pré-história: monumentos e calendários. Astronomia nas civilizações antigas: egípcios, babilônios, maias e gregos. Modelos cosmológicos: geocentrismo (Ptolomeu) e heliocentrismo (Copérnico). A Revolução Científica: Tycho Brahe, Kepler e Galileu Galilei. Newton e a gravitação universal. Instrumentos históricos de observação e a origem da astronomia moderna.
+
+2º BIMESTRE — O Universo e o Sistema Solar
+Definição e áreas da Astronomia. O céu noturno e observação a olho nu. Movimentos da Terra: rotação e translação. O Sol: estrutura e importância para a vida. O Sistema Solar: formação, estrutura e escala. Órbitas e Leis de Kepler. Planetas rochosos (Mercúrio, Vênus, Terra, Marte) e gasosos (Júpiter, Saturno, Urano, Netuno). Plutão e planetas anões.
+
+3º BIMESTRE — A Lua, Estrelas e Galáxias
+A Lua: origem, características, superfície e exploração. Fases da Lua e ciclo lunar. Eclipses solar e lunar. Marés e influência gravitacional da Lua. O Sol por dentro: fusão nuclear e atividade solar. Estrelas: tipos, luminosidade, temperatura e ciclo de vida. Constelações. A Via Láctea: estrutura e posição do Sistema Solar. Outras galáxias e escala do universo.
+
+4º BIMESTRE — Exploração Espacial e Astronomia no Cotidiano
+A Corrida Espacial: EUA × URSS. Primeiros humanos no espaço. Apollo 11 e a chegada à Lua. Sondas e robôs no espaço (Voyager, Curiosity, James Webb). Estações espaciais e vida em microgravidade. Asteroides, cometas e meteoros. Buracos negros. Telescópios: evolução e tipos. Estações do ano e inclinação da Terra. Calendários e astronomia no cotidiano. Missões espaciais atuais e futuro da exploração.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Metodologia -->
+      <div class="section">
+        <div class="section-title">Metodologia de Ensino</div>
+        <div class="section-body medium" contenteditable="true">Aulas expositivas dialogadas com uso do quadro branco e projetor. Rodas de conversa para levantamento e sistematização de conhecimentos prévios. Análise e discussão de imagens astronômicas (telescópio Hubble, James Webb, missões da NASA). Leitura e interpretação de textos de divulgação científica. Atividades em grupo de classificação, identificação e construção de mapas conceituais. Resolução de exercícios escritos para fixação de conteúdo. Debates sobre questões da ciência contemporânea (vida fora da Terra, futuro da exploração espacial, sustentabilidade planetária).</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Recursos -->
+      <div class="section">
+        <div class="section-title">Recursos Didáticos</div>
+        <div class="section-body short" contenteditable="true">Quadro branco e marcadores coloridos. Projetor ou TV para exibição de imagens e vídeos. Materiais impressos: atividades, textos de divulgação, mapas celestes e fichas de exercícios. Caderno e caneta. Aplicativo gratuito de mapa estelar (ex.: Stellarium Web) para atividades de identificação de constelações e planetas.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Avaliação -->
+      <div class="section">
+        <div class="section-title">Avaliação e Recuperação</div>
+        <div class="section-body medium" contenteditable="true">A avaliação é predominantemente formativa ao longo do bimestre: participação oral nas rodas de conversa e debates, atividades escritas realizadas em sala e tarefas de casa são acompanhadas continuamente para ajuste do ritmo de ensino e identificação de dificuldades individuais.
+
+Ao final de cada bimestre, aplica-se uma avaliação somativa escrita (prova bimestral) abrangendo os conteúdos trabalhados no período, com questões objetivas e discursivas.
+
+Alunos que não atingirem a média bimestral têm direito à reavaliação bimestral, realizada na última aula do bimestre, com conteúdo equivalente ao da avaliação anterior.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Cronograma -->
+      <div class="section">
+        <div class="section-title">Cronograma</div>
+        <table class="crono-table" id="crono-table">
+          <thead>
+            <tr>
+              <th style="width:8%">Bimestre</th>
+              <th style="width:20%">Período</th>
+              <th style="width:18%">Tema</th>
+              <th style="width:50%">Conteúdo</th>
+              <th style="width:4%" class="td-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="crono-body"></tbody>
+        </table>
+        <div class="add-row-bar">
+          <button class="btn-add-row" onclick="addCronoRow()">+ Adicionar linha</button>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Referências -->
+      <div class="section">
+        <div class="section-title">Referências Bibliográficas</div>
+        <div class="section-body medium" contenteditable="true">OLIVEIRA FILHO, K. S.; SARAIVA, M. F. O. Astronomia e Astrofísica. 3. ed. São Paulo: Livraria da Física, 2014.
+
+SAGAN, Carl. Cosmos. São Paulo: Companhia das Letras, 2017.
+
+BRETONES, P. S. Astronomia: ensino e divulgação. São Carlos: UFSCar, 2014.
+
+BRASIL. Base Nacional Comum Curricular. Brasília: MEC, 2018. Disponível em: http://basenacionalcomum.mec.gov.br
+
+NASA — National Aeronautics and Space Administration. James Webb Space Telescope. Disponível em: https://webb.nasa.gov
+
+Sociedade Astronômica Brasileira (SAB). Disponível em: https://www.sab-astro.org.br</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const ROWS = [
+      {
+        bim: '1º',
+        per: '12/02 a 30/04',
+        tema: 'Contextualização Histórica da Astronomia',
+        cont: '- A Astronomia na pré-história: Stonehenge, calendários lunares e solares.\n- Astronomia nas civilizações antigas: egípcios, babilônios, maias e gregos.\n- Modelos cosmológicos: geocentrismo (Ptolomeu) e heliocentrismo (Copérnico).\n- A Revolução Científica: Tycho Brahe, Kepler e Galileu Galilei.\n- Newton e a gravitação universal.\n- Instrumentos históricos de observação e origens da astronomia moderna.'
+      },
+      {
+        bim: '2º',
+        per: '04/05 a 19/06\ne 07/07 a 28/07',
+        tema: 'O Universo e o Sistema Solar',
+        cont: '- O que é Astronomia e suas áreas de pesquisa.\n- O céu noturno: estrelas, planetas e constelações visíveis a olho nu.\n- Movimentos da Terra: rotação (dia e noite) e translação.\n- O Sol: estrutura, camadas e importância para a vida.\n- O Sistema Solar: formação, estrutura e escala.\n- Órbitas e movimentos planetários (Leis de Kepler).\n- Planetas rochosos: Mercúrio, Vênus, Terra e Marte.\n- Planetas gasosos: Júpiter, Saturno, Urano e Netuno.\n- Plutão e os planetas anões.'
+      },
+      {
+        bim: '3º',
+        per: '29/07 a 09/10',
+        tema: 'A Lua, Estrelas e Galáxias',
+        cont: '- A Lua: origem, características, superfície e exploração humana.\n- Fases da Lua e ciclo lunar.\n- Eclipses solar e lunar: condições e periodicidade.\n- Marés: influência gravitacional da Lua nos oceanos.\n- O Sol por dentro: fusão nuclear, camadas e atividade solar.\n- Estrelas: tipos, luminosidade, temperatura e ciclo de vida.\n- Constelações: histórias no céu e uso na navegação.\n- A Via Láctea: estrutura, tamanho e posição do Sistema Solar.\n- Outras galáxias: tipos e a escala do universo.'
+      },
+      {
+        bim: '4º',
+        per: '13/10 a 30/12',
+        tema: 'Exploração Espacial e Astronomia no Cotidiano',
+        cont: '- A Corrida Espacial: disputa EUA × URSS e marcos históricos.\n- Primeiros humanos no espaço: Gagárin, Tereshkova e Alan Shepard.\n- Apollo 11: a chegada à Lua e seu impacto histórico.\n- Sondas e robôs: Voyager, Curiosity e telescópio James Webb.\n- Estações espaciais: ISS e vida em microgravidade.\n- Asteroides, cometas e meteoros: características e riscos.\n- Buracos negros: formação, características e detecção.\n- Telescópios: evolução e importância para a ciência.\n- Estações do ano e inclinação da Terra.\n- Calendários históricos e astronomia no cotidiano.\n- Missões espaciais atuais e o futuro da exploração.'
+      }
+    ];
+
+    function createCronoRow(bim, per, tema, cont) {
+      const tr = document.createElement('tr');
+
+      function cell(widthPct, val) {
+        const td = document.createElement('td');
+        td.style.width = widthPct;
+        const div = document.createElement('div');
+        div.className = 'cell';
+        div.contentEditable = 'true';
+        if (val) div.textContent = val;
+        td.appendChild(div);
+        return td;
+      }
+
+      tr.appendChild(cell('8%',  bim  || ''));
+      tr.appendChild(cell('20%', per  || ''));
+      tr.appendChild(cell('18%', tema || ''));
+      tr.appendChild(cell('50%', cont || ''));
+
+      const tdAct = document.createElement('td');
+      tdAct.className = 'td-actions';
+      const btn = document.createElement('button');
+      btn.className = 'btn-remove-row';
+      btn.textContent = '✕';
+      btn.title = 'Remover linha';
+      btn.onclick = () => {
+        if (document.querySelectorAll('#crono-body tr').length > 1) tr.remove();
+      };
+      tdAct.appendChild(btn);
+      tr.appendChild(tdAct);
+
+      return tr;
+    }
+
+    function addCronoRow(bim, per, tema, cont) {
+      document.getElementById('crono-body').appendChild(
+        createCronoRow(bim, per, tema, cont)
+      );
+    }
+
+    ROWS.forEach(r => addCronoRow(r.bim, r.per, r.tema, r.cont));
+  </script>
+
+</body>
+</html>

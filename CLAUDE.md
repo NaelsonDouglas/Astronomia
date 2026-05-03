@@ -112,6 +112,33 @@ Para Ozória, gera-se **um único HTML por bimestre** (não um por aula), pré-p
 
 Para Fernandina, gera-se **um HTML por aula**, salvo em `aulas_html/fernandina/NNN-slug.html`.
 
+## Planos de Ensino Anual
+
+Exclusivo da escola **Fernandina**. Template em:
+`html_template/fernandina/plano-ensino-template.html`
+
+É um documento **anual por disciplina/turma**, distinto dos planos de aula por-aula. Cobre toda a estrutura curricular do ano letivo.
+
+Salvar planos concretos gerados a partir dele em:
+`<disciplina>/<turma>/plano_ensino/fernandina/plano-ensino-<ano>.html`
+
+Ao gerar um plano concreto: copiar `template/logo-fernandina.jpg` para o mesmo diretório e ajustar o `src` da imagem para `./logo-fernandina.jpg`.
+
+### Seções do documento (em ordem)
+1. Cabeçalho: logo + "Escola Estadual Fernandina Malta" + "PLANO DE ENSINO ANUAL"
+2. Identificação: professor/a, curso, disciplina, série, turno, carga horária, ano letivo
+3. Ementa
+4. Objetivo Geral
+5. Objetivos Específicos
+6. Conteúdo Programático
+7. Metodologia de Ensino
+8. Recursos Didáticos
+9. Avaliação e Recuperação
+10. Cronograma (tabela Bimestre / Período / Tema / Conteúdo — 4 linhas padrão, linhas adicionáveis via JS)
+11. Referências Bibliográficas
+
+Todos os campos são `contenteditable`. O cronograma tem botão "+ Adicionar linha" e "✕" por linha (ocultos no print).
+
 ## README
 
 O `README.md` na raiz lista todas as disciplinas e turmas. Cada seção corresponde a uma combinação `disciplina/turma` e contém a tabela de sumário de aulas com links para os arquivos `.md` em `<disciplina>/<turma>/aulas/`.

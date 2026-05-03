@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Ensino Anual</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #c8c8c8;
+      font-family: Arial, sans-serif;
+      font-size: 11pt;
+      color: #000;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #333; padding: 7px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .btn-print {
+      background: #1e4d8c; color: #fff; border: none;
+      padding: 6px 18px; font-size: 12px; font-family: Arial, sans-serif;
+      border-radius: 4px; cursor: pointer;
+    }
+    .btn-print:hover { background: #163a6b; }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      margin-top: 44px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 0 48px;
+    }
+
+    .page {
+      width: 210mm;
+      max-width: 100%;
+      min-height: 297mm;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,.35);
+      margin-bottom: 24px;
+      padding: 10mm 15mm 15mm;
+    }
+
+    /* ── School header ── */
+    .school-header {
+      text-align: center;
+      margin-bottom: 6mm;
+    }
+    .school-header img {
+      height: 80px;
+      display: block;
+      margin: 0 auto 3mm;
+    }
+    .school-name {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-bottom: 5mm;
+    }
+    .doc-type {
+      font-size: 14pt;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      margin-bottom: 6mm;
+    }
+
+    /* ── Identification block ── */
+    .id-block {
+      margin-bottom: 5mm;
+      font-size: 11pt;
+      line-height: 2;
+    }
+    .id-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 10mm;
+      align-items: baseline;
+    }
+    .id-field {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+    .id-label { font-weight: bold; white-space: nowrap; }
+    .id-value {
+      outline: none;
+      border-bottom: 1px solid #999;
+      min-width: 40px;
+      padding: 0 3px;
+      font-size: 11pt;
+    }
+    .id-value:focus { background: #f8fbff; border-bottom-color: #1e4d8c; }
+
+    /* ── Section divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #bbb;
+      margin: 4mm 0 3mm;
+    }
+
+    /* ── Content sections ── */
+    .section { margin-bottom: 4mm; }
+
+    .section-title {
+      font-size: 11pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .section-body {
+      outline: none;
+      font-size: 11pt;
+      line-height: 1.6;
+      text-align: justify;
+      min-height: 20mm;
+      padding: 1mm 0;
+      display: block;
+      white-space: pre-wrap;
+    }
+    .section-body:focus { background: #f8fbff; }
+
+    .section-body.tall   { min-height: 40mm; }
+    .section-body.medium { min-height: 30mm; }
+    .section-body.short  { min-height: 20mm; }
+
+    /* ── Cronograma ── */
+    .crono-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2mm;
+      font-size: 10.5pt;
+    }
+    .crono-table th {
+      background: #f0f0f0;
+      font-weight: bold;
+      font-size: 10pt;
+      padding: 5px 7px;
+      border: 1px solid #666;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .crono-table td {
+      border: 1px solid #888;
+      padding: 0;
+      vertical-align: top;
+    }
+    .crono-table td.td-actions {
+      text-align: center;
+      vertical-align: middle;
+      background: #fafafa;
+      border-color: #ccc;
+      width: 28px;
+    }
+    .crono-table tr { break-inside: avoid; page-break-inside: avoid; }
+    .crono-table td .cell {
+      display: block;
+      outline: none;
+      min-height: 14mm;
+      padding: 5px 7px;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      text-align: justify;
+      white-space: pre-wrap;
+    }
+    .crono-table td .cell:focus { background: #f8fbff; }
+    .crono-table td.col-bim   { width:  8%; }
+    .crono-table td.col-per   { width: 20%; }
+    .crono-table td.col-tema  { width: 18%; }
+    .crono-table td.col-cont  { width: 54%; }
+
+    .btn-remove-row {
+      background: none; border: 1px solid #c00; color: #c00;
+      border-radius: 3px; cursor: pointer; font-size: 11px;
+      padding: 2px 5px; line-height: 1;
+    }
+    .btn-remove-row:hover { background: #ffe8e8; }
+
+    .add-row-bar { margin-top: 2mm; }
+    .btn-add-row {
+      background: #555; color: #fff; border: none;
+      border-radius: 4px; padding: 5px 14px;
+      font-size: 11px; font-family: Arial, sans-serif; cursor: pointer;
+    }
+    .btn-add-row:hover { background: #333; }
+
+    /* ── Print ── */
+    @media print {
+      body { background: none; }
+      .toolbar, .add-row-bar, .td-actions { display: none !important; }
+      .page-wrapper { margin-top: 0; padding: 0; background: none; }
+      .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; }
+      @page { size: A4 portrait; margin: 15mm; }
+      .page { padding: 0; }
+      .section-body:focus, .id-value:focus, .cell:focus { background: none !important; }
+      .id-value { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-print" onclick="window.print()">Salvar como PDF</button>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="page">
+
+      <!-- Cabeçalho -->
+      <div class="school-header">
+        <img src="../../template/logo-fernandina.jpg" alt="Logo Escola Fernandina Malta">
+        <div class="school-name">Escola Estadual Fernandina Malta</div>
+        <div class="doc-type">PLANO DE ENSINO ANUAL</div>
+      </div>
+
+      <!-- Identificação -->
+      <div class="id-block">
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Professor/a:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+        </div>
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Curso:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Disciplina:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Série:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Turno:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+        </div>
+        <div class="id-line">
+          <div class="id-field">
+            <span class="id-label">Carga horária:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Ano letivo:</span>
+            <span class="id-value" contenteditable="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Ementa -->
+      <div class="section">
+        <div class="section-title">Ementa</div>
+        <div class="section-body tall" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Objetivo Geral -->
+      <div class="section">
+        <div class="section-title">Objetivo Geral</div>
+        <div class="section-body medium" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Objetivos Específicos -->
+      <div class="section">
+        <div class="section-title">Objetivos Específicos</div>
+        <div class="section-body medium" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Conteúdo Programático -->
+      <div class="section">
+        <div class="section-title">Conteúdo Programático</div>
+        <div class="section-body tall" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Metodologia -->
+      <div class="section">
+        <div class="section-title">Metodologia de Ensino</div>
+        <div class="section-body medium" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Recursos -->
+      <div class="section">
+        <div class="section-title">Recursos Didáticos</div>
+        <div class="section-body short" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Avaliação -->
+      <div class="section">
+        <div class="section-title">Avaliação e Recuperação</div>
+        <div class="section-body medium" contenteditable="true"></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Cronograma -->
+      <div class="section">
+        <div class="section-title">Cronograma</div>
+        <table class="crono-table" id="crono-table">
+          <thead>
+            <tr>
+              <th style="width:8%">Bimestre</th>
+              <th style="width:20%">Período</th>
+              <th style="width:18%">Tema</th>
+              <th style="width:50%">Conteúdo</th>
+              <th style="width:4%" class="td-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="crono-body">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+        <div class="add-row-bar">
+          <button class="btn-add-row" onclick="addCronoRow()">+ Adicionar linha</button>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Referências -->
+      <div class="section">
+        <div class="section-title">Referências Bibliográficas</div>
+        <div class="section-body medium" contenteditable="true"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function createCronoRow(bim, per, tema, cont) {
+      const tr = document.createElement('tr');
+
+      function cell(cls, val) {
+        const td = document.createElement('td');
+        td.className = cls;
+        const div = document.createElement('div');
+        div.className = 'cell';
+        div.contentEditable = 'true';
+        if (val) div.textContent = val;
+        td.appendChild(div);
+        return td;
+      }
+
+      tr.appendChild(cell('col-bim',  bim  || ''));
+      tr.appendChild(cell('col-per',  per  || ''));
+      tr.appendChild(cell('col-tema', tema || ''));
+      tr.appendChild(cell('col-cont', cont || ''));
+
+      const tdAct = document.createElement('td');
+      tdAct.className = 'td-actions';
+      const btn = document.createElement('button');
+      btn.className = 'btn-remove-row';
+      btn.textContent = '✕';
+      btn.title = 'Remover linha';
+      btn.onclick = () => {
+        if (document.querySelectorAll('#crono-body tr').length > 1) tr.remove();
+      };
+      tdAct.appendChild(btn);
+      tr.appendChild(tdAct);
+
+      return tr;
+    }
+
+    function addCronoRow(bim, per, tema, cont) {
+      document.getElementById('crono-body').appendChild(
+        createCronoRow(bim, per, tema, cont)
+      );
+    }
+
+    // 4 empty rows (one per bimestre)
+    addCronoRow('1º', '', '', '');
+    addCronoRow('2º', '', '', '');
+    addCronoRow('3º', '', '', '');
+    addCronoRow('4º', '', '', '');
+  </script>
+
+</body>
+</html>
