@@ -115,6 +115,143 @@ Tópicos em ordem:
 
 ---
 
+## Química — 2ª Série (Termoquímica)
+
+**Período:** 2º Bimestre 2026 (04/05 – 28/07) | **Duração:** 1 hora por aula  
+**Professora:** Poliana Conceição  
+**Bloco temático:** Termoquímica
+
+| Turma | Escola | Frequência | Total |
+|-------|--------|------------|-------|
+| 2-01 M | Ozória | Segundas | 10 aulas |
+| 2-02 M | Ozória | Segundas + Terças | 21 aulas |
+| 2-01 I | Fernandina | Quartas | 10 aulas |
+
+### Sumário de Aulas (base — turma 2-02 M, 21 aulas)
+
+| # | Arquivo | Título |
+|---|---------|--------|
+| 1 | [001-introducao-energia-calor-temperatura.md](quimica/serie_02/aulas/001-introducao-energia-calor-temperatura.md) | Energia, calor e temperatura |
+| 2 | [002-sistemas-termodinamicos.md](quimica/serie_02/aulas/002-sistemas-termodinamicos.md) | Sistemas termodinâmicos |
+| 3 | [003-entalpia-conceito-e-representacao.md](quimica/serie_02/aulas/003-entalpia-conceito-e-representacao.md) | Entalpia — conceito e representação |
+| 4 | [004-equacoes-termoquimicas.md](quimica/serie_02/aulas/004-equacoes-termoquimicas.md) | Equações termoquímicas |
+| 5 | [005-reacoes-exotermicas.md](quimica/serie_02/aulas/005-reacoes-exotermicas.md) | Reações exotérmicas |
+| 6 | [006-reacoes-endotermicas.md](quimica/serie_02/aulas/006-reacoes-endotermicas.md) | Reações endotérmicas |
+| 7 | [007-calor-de-formacao-padrao-definicao.md](quimica/serie_02/aulas/007-calor-de-formacao-padrao-definicao.md) | Calor de formação padrão (ΔHf°) |
+| 8 | [008-calor-de-formacao-exercicios.md](quimica/serie_02/aulas/008-calor-de-formacao-exercicios.md) | Calor de formação — exercícios |
+| 9 | [009-calor-de-combustao-conceito.md](quimica/serie_02/aulas/009-calor-de-combustao-conceito.md) | Calor de combustão — conceito |
+| 10 | [010-calor-de-combustao-exercicios.md](quimica/serie_02/aulas/010-calor-de-combustao-exercicios.md) | Calor de combustão — exercícios |
+| 11 | [011-lei-de-hess-enunciado.md](quimica/serie_02/aulas/011-lei-de-hess-enunciado.md) | Lei de Hess — enunciado |
+| 12 | [012-lei-de-hess-aplicacoes.md](quimica/serie_02/aulas/012-lei-de-hess-aplicacoes.md) | Lei de Hess — aplicações |
+| 13 | [013-lei-de-hess-exercicios-intermediarios.md](quimica/serie_02/aulas/013-lei-de-hess-exercicios-intermediarios.md) | Lei de Hess — exercícios intermediários |
+| 14 | [014-energia-de-ligacao-conceito.md](quimica/serie_02/aulas/014-energia-de-ligacao-conceito.md) | Energia de ligação — conceito |
+| 15 | [015-energia-de-ligacao-calculo.md](quimica/serie_02/aulas/015-energia-de-ligacao-calculo.md) | Energia de ligação — cálculo de ΔH |
+| 16 | [016-calor-de-solucao-e-neutralizacao.md](quimica/serie_02/aulas/016-calor-de-solucao-e-neutralizacao.md) | Calor de solução e neutralização |
+| 17 | [017-diagrama-de-entalpia.md](quimica/serie_02/aulas/017-diagrama-de-entalpia.md) | Diagrama de entalpia |
+| 18 | [018-revisao-exercicios-integradores.md](quimica/serie_02/aulas/018-revisao-exercicios-integradores.md) | Revisão e exercícios integradores |
+| 19 | [019-revisao-geral.md](quimica/serie_02/aulas/019-revisao-geral.md) | Revisão geral |
+| 20 | [020-avaliacao-bimestral.md](quimica/serie_02/aulas/020-avaliacao-bimestral.md) | Avaliação Bimestral |
+| 21 | [021-reavaliacao-bimestral.md](quimica/serie_02/aulas/021-reavaliacao-bimestral.md) | Reavaliação Bimestral |
+
+---
+
+## Química — 3ª Série (Hidrocarbonetos)
+
+**Período:** 2º Bimestre 2026 (04/05 – 28/07) | **Duração:** 1 hora por aula  
+**Professora:** Poliana Conceição  
+**Bloco temático:** Hidrocarbonetos
+
+| Turma | Escola | Frequência | Total |
+|-------|--------|------------|-------|
+| 3-01 M | Ozória | Terças | 11 aulas |
+| 3-01 V | Ozória | Segundas | 10 aulas |
+
+### Sumário de Aulas
+
+| # | Arquivo | Título |
+|---|---------|--------|
+| 1 | [001-introducao-quimica-organica.md](quimica/serie_03/aulas/001-introducao-quimica-organica.md) | Introdução à Química Orgânica |
+| 2 | [002-hidrocarbonetos-conceito-classificacao.md](quimica/serie_03/aulas/002-hidrocarbonetos-conceito-classificacao.md) | Hidrocarbonetos — conceito e classificação |
+| 3 | [003-alcanos-nomenclatura-propriedades.md](quimica/serie_03/aulas/003-alcanos-nomenclatura-propriedades.md) | Alcanos — nomenclatura e propriedades |
+| 4 | [004-alcenos-e-alcinos.md](quimica/serie_03/aulas/004-alcenos-e-alcinos.md) | Alcenos e alcinos |
+| 5 | [005-aromaticos-benzeno.md](quimica/serie_03/aulas/005-aromaticos-benzeno.md) | Aromáticos — benzeno e derivados |
+| 6 | [006-reacoes-combustao-e-substituicao.md](quimica/serie_03/aulas/006-reacoes-combustao-e-substituicao.md) | Reações de combustão e substituição |
+| 7 | [007-reacoes-de-adicao.md](quimica/serie_03/aulas/007-reacoes-de-adicao.md) | Reações de adição |
+| 8 | [008-isomeria-parte-1.md](quimica/serie_03/aulas/008-isomeria-parte-1.md) | Isomeria — parte 1 (constitucional) |
+| 9 | [009-isomeria-parte-2.md](quimica/serie_03/aulas/009-isomeria-parte-2.md) | Isomeria — parte 2 (espacial) |
+| 10 | [010-avaliacao-bimestral.md](quimica/serie_03/aulas/010-avaliacao-bimestral.md) | Avaliação Bimestral |
+| 11 | [011-reavaliacao-bimestral.md](quimica/serie_03/aulas/011-reavaliacao-bimestral.md) | Reavaliação Bimestral |
+
+---
+
+## TAC — 1ª Série (Letramento Digital)
+
+**Período:** 2º Bimestre 2026 (05/05 – 28/07) | **Frequência:** Terças-feiras | **Duração:** 1 hora por aula  
+**Turma:** 1-01 V | **Escola:** Ozória | **Total:** 11 aulas
+
+### Sumário de Aulas
+
+| # | Arquivo | Título | Data |
+|---|---------|--------|------|
+| 1 | [001-o-que-e-tecnologia.md](tac/serie_01/aulas/001-o-que-e-tecnologia.md) | O que é tecnologia? | 05/05/2026 |
+| 2 | [002-seguranca-digital.md](tac/serie_01/aulas/002-seguranca-digital.md) | Segurança digital | 12/05/2026 |
+| 3 | [003-cidadania-digital.md](tac/serie_01/aulas/003-cidadania-digital.md) | Cidadania digital | 19/05/2026 |
+| 4 | [004-fake-news.md](tac/serie_01/aulas/004-fake-news.md) | Fake news | 26/05/2026 |
+| 5 | [005-internet-e-redes-sociais.md](tac/serie_01/aulas/005-internet-e-redes-sociais.md) | Internet e redes sociais | 02/06/2026 |
+| 6 | [006-comunicacao-digital.md](tac/serie_01/aulas/006-comunicacao-digital.md) | Comunicação digital | 09/06/2026 |
+| 7 | [007-producao-de-conteudo-digital.md](tac/serie_01/aulas/007-producao-de-conteudo-digital.md) | Produção de conteúdo digital | 16/06/2026 |
+| 8 | [008-ferramentas-de-produtividade-digital.md](tac/serie_01/aulas/008-ferramentas-de-produtividade-digital.md) | Ferramentas de produtividade digital | 07/07/2026 |
+| 9 | [009-pensamento-computacional.md](tac/serie_01/aulas/009-pensamento-computacional.md) | Pensamento computacional | 14/07/2026 |
+| 10 | [010-avaliacao-bimestral.md](tac/serie_01/aulas/010-avaliacao-bimestral.md) | Avaliação Bimestral | 21/07/2026 |
+| 11 | [011-reavaliacao-bimestral.md](tac/serie_01/aulas/011-reavaliacao-bimestral.md) | Reavaliação Bimestral | 28/07/2026 |
+
+---
+
+## PIT — 3ª Série (Resíduos e Território)
+
+**Período:** 2º Bimestre 2026 (05/05 – 28/07) | **Frequência:** Terças-feiras | **Duração:** 1 hora por aula  
+**Turma:** 3-01 V | **Escola:** Ozória | **Total:** 11 aulas
+
+### Sumário de Aulas
+
+| # | Arquivo | Título | Data |
+|---|---------|--------|------|
+| 1 | [001-o-que-e-pit.md](pit/serie_03/aulas/001-o-que-e-pit.md) | Apresentação do PIT | 05/05/2026 |
+| 2 | [002-territorio-e-identidade-local.md](pit/serie_03/aulas/002-territorio-e-identidade-local.md) | Território e identidade local | 12/05/2026 |
+| 3 | [003-residuos-solidos-tipos-e-impactos.md](pit/serie_03/aulas/003-residuos-solidos-tipos-e-impactos.md) | Resíduos sólidos — tipos e impactos | 19/05/2026 |
+| 4 | [004-gestao-de-residuos-pnrs.md](pit/serie_03/aulas/004-gestao-de-residuos-pnrs.md) | Gestão de resíduos e PNRS | 26/05/2026 |
+| 5 | [005-coleta-seletiva-e-reciclagem.md](pit/serie_03/aulas/005-coleta-seletiva-e-reciclagem.md) | Coleta seletiva e reciclagem | 02/06/2026 |
+| 6 | [006-compostagem-residuos-organicos.md](pit/serie_03/aulas/006-compostagem-residuos-organicos.md) | Compostagem e resíduos orgânicos | 09/06/2026 |
+| 7 | [007-diagnostico-territorial.md](pit/serie_03/aulas/007-diagnostico-territorial.md) | Diagnóstico territorial | 16/06/2026 |
+| 8 | [008-elaboracao-do-projeto.md](pit/serie_03/aulas/008-elaboracao-do-projeto.md) | Elaboração do projeto | 07/07/2026 |
+| 9 | [009-apresentacao-parcial.md](pit/serie_03/aulas/009-apresentacao-parcial.md) | Apresentação parcial | 14/07/2026 |
+| 10 | [010-avaliacao-bimestral.md](pit/serie_03/aulas/010-avaliacao-bimestral.md) | Avaliação Bimestral | 21/07/2026 |
+| 11 | [011-reavaliacao-bimestral.md](pit/serie_03/aulas/011-reavaliacao-bimestral.md) | Reavaliação Bimestral | 28/07/2026 |
+
+---
+
+## TAC — 2ª Série (Modelagem Matemática)
+
+**Período:** 2º Bimestre 2026 (06/05 – 22/07) | **Frequência:** Quartas-feiras | **Duração:** 1 hora por aula  
+**Turma:** 2-01 I | **Escola:** Fernandina | **Total:** 10 aulas
+
+### Sumário de Aulas
+
+| # | Arquivo | Título | Data |
+|---|---------|--------|------|
+| 1 | [001-o-que-e-modelagem-matematica.md](tac/serie_02/aulas/001-o-que-e-modelagem-matematica.md) | O que é modelagem matemática? | 06/05/2026 |
+| 2 | [002-funcoes-como-modelos.md](tac/serie_02/aulas/002-funcoes-como-modelos.md) | Funções como modelos | 13/05/2026 |
+| 3 | [003-modelagem-funcoes-lineares.md](tac/serie_02/aulas/003-modelagem-funcoes-lineares.md) | Modelagem com funções lineares | 20/05/2026 |
+| 4 | [004-modelagem-funcoes-quadraticas.md](tac/serie_02/aulas/004-modelagem-funcoes-quadraticas.md) | Modelagem com funções quadráticas | 27/05/2026 |
+| 5 | [005-modelagem-funcoes-exponenciais.md](tac/serie_02/aulas/005-modelagem-funcoes-exponenciais.md) | Modelagem com funções exponenciais | 03/06/2026 |
+| 6 | [006-estatistica-descritiva.md](tac/serie_02/aulas/006-estatistica-descritiva.md) | Estatística descritiva | 10/06/2026 |
+| 7 | [007-analise-de-dados-graficos.md](tac/serie_02/aulas/007-analise-de-dados-graficos.md) | Análise de dados e gráficos | 17/06/2026 |
+| 8 | [008-construcao-de-modelo-projeto.md](tac/serie_02/aulas/008-construcao-de-modelo-projeto.md) | Construção de um modelo — projeto | 08/07/2026 |
+| 9 | [009-avaliacao-bimestral.md](tac/serie_02/aulas/009-avaliacao-bimestral.md) | Avaliação Bimestral | 15/07/2026 |
+| 10 | [010-reavaliacao-bimestral.md](tac/serie_02/aulas/010-reavaliacao-bimestral.md) | Reavaliação Bimestral | 22/07/2026 |
+
+---
+
 ## Astronomia — Blocos Temáticos
 
 | Bloco | Aulas | Período |
