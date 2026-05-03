@@ -5,8 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Os Primeiros Humanos no Espaço</title>
   <link rel="stylesheet" href="./aulas.css">
+
+  <style>
+    /* ── Habilidades BNCC ── */
+    .hab-cell { display: flex; flex-direction: column; gap: 3px; }
+    .hab-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+    .hab-chip {
+      display: inline-flex; align-items: center; gap: 2px;
+      background: #e8f0fb; border: 1px solid #9ab; border-radius: 3px;
+      font-size: 7.5pt; padding: 1px 4px; color: #1a3a6b; white-space: nowrap;
+    }
+    .hab-chip-rm { background: none; border: none; color: #668; cursor: pointer; font-size: 11px; padding: 0 1px; line-height: 1; }
+    .hab-chip-rm:hover { color: #c00; }
+    .hab-edit-btn {
+      align-self: flex-start; background: none; border: 1px dashed #9ab; color: #1e4d8c;
+      border-radius: 3px; cursor: pointer; font-size: 7.5pt; padding: 2px 6px; font-family: Arial, sans-serif;
+    }
+    .hab-edit-btn:hover { background: #e8f0fb; }
+    .hab-print { display: none; font-size: 9pt; line-height: 1.9; word-break: break-word; white-space: pre-line; }
+    /* ── Modal BNCC ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.5); z-index: 500; align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 6px; box-shadow: 0 4px 24px rgba(0,0,0,.35);
+      width: 780px; max-width: 95vw; max-height: 88vh;
+      display: flex; flex-direction: column; font-family: Arial, sans-serif;
+    }
+    .modal-hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 20px; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 15px; flex-shrink: 0;
+    }
+    .modal-close { background: none; border: none; cursor: pointer; font-size: 22px; color: #888; line-height: 1; }
+    .modal-close:hover { color: #000; }
+    .modal-body { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+    .modal-left { width: 300px; flex-shrink: 0; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-search { padding: 10px; border-bottom: 1px solid #eee; flex-shrink: 0; }
+    .modal-search input { width: 100%; border: 1px solid #ccc; border-radius: 3px; padding: 7px 10px; font-size: 14px; box-sizing: border-box; font-family: Arial, sans-serif; }
+    .modal-search input:focus { outline: none; border-color: #1e4d8c; }
+    .hab-list-wrap { flex: 1; overflow-y: auto; }
+    .hab-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; cursor: pointer; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+    .hab-item:hover { background: #f4f8ff; }
+    .hab-item.active { background: #e8f0fb; }
+    .hab-item input[type=checkbox] { flex-shrink: 0; cursor: pointer; width: 15px; height: 15px; }
+    .hab-item-code { font-weight: bold; color: #1e4d8c; font-size: 13px; }
+    .hab-item-sep { padding: 5px 12px; font-size: 11px; color: #888; background: #f8f8f8; border-bottom: 1px solid #eee; font-style: italic; }
+    .modal-custom { padding: 9px 10px; border-top: 1px solid #eee; display: flex; gap: 6px; flex-shrink: 0; }
+    .modal-custom input { flex: 1; border: 1px solid #ccc; border-radius: 3px; padding: 6px 9px; font-size: 13px; font-family: Arial, sans-serif; }
+    .modal-custom input:focus { outline: none; border-color: #1e4d8c; }
+    .modal-custom button { background: #1e4d8c; color: #fff; border: none; border-radius: 3px; padding: 6px 12px; font-size: 13px; cursor: pointer; font-family: Arial, sans-serif; white-space: nowrap; }
+    .modal-custom button:hover { background: #163a6b; }
+    .modal-right { flex: 1; padding: 20px; overflow-y: auto; }
+    .desc-code { font-weight: bold; color: #1e4d8c; font-size: 15px; margin-bottom: 10px; }
+    .desc-text { font-size: 14px; line-height: 1.7; color: #333; }
+    .desc-empty { color: #aaa; font-size: 13px; font-style: italic; }
+    .modal-ftr { padding: 11px 20px; border-top: 1px solid #ddd; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .modal-sel-txt { flex: 1; font-size: 13px; color: #555; word-break: break-word; }
+    .modal-confirm { background: #1e4d8c; color: #fff; border: none; border-radius: 4px; padding: 9px 22px; font-size: 14px; cursor: pointer; font-family: Arial, sans-serif; flex-shrink: 0; }
+    .modal-confirm:hover { background: #163a6b; }
+    @media print {
+      .modal-overlay { display: none !important; }
+      .hab-chips, .hab-edit-btn { display: none !important; }
+      .hab-print { display: block !important; }
+    }
+  </style>
 </head>
 <body>
+  <!-- Modal de habilidades BNCC -->
+  <div id="hab-modal" class="modal-overlay" onclick="if(event.target===this)closeHabModal()">
+    <div class="modal-box">
+      <div class="modal-hdr">
+        <span>Selecionar Habilidades BNCC</span>
+        <button class="modal-close" onclick="closeHabModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-left">
+          <div class="modal-search">
+            <input id="hab-search" type="text" placeholder="Buscar código ou descrição…" oninput="renderHabList(this.value)">
+          </div>
+          <div class="hab-list-wrap" id="hab-list"></div>
+          <div class="modal-custom">
+            <input id="hab-custom" type="text" placeholder="Código personalizado (ex: EF09CI01)"
+                   onkeydown="if(event.key==='Enter')addCustomHab()">
+            <button onclick="addCustomHab()">+ Adicionar</button>
+          </div>
+        </div>
+        <div class="modal-right" id="hab-desc">
+          <p class="desc-empty">Passe o mouse sobre um código para ver a descrição.</p>
+        </div>
+      </div>
+      <div class="modal-ftr">
+        <div id="hab-sel-txt" class="modal-sel-txt">Nenhuma habilidade selecionada.</div>
+        <button class="modal-confirm" onclick="confirmHabModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toolbar">
     <button class="btn-print" onclick="window.print()">Salvar como PDF</button>
     <a href="index.html" class="btn-back">← Todas as Aulas</a>
@@ -49,7 +145,11 @@
           </div>
           <div class="info-row">
             <span class="info-label">Códigos das competências e habilidades BNCC/ReCAL:</span>
-            <div class="info-value" contenteditable="true"></div>
+            <div class="info-value hab-cell" id="bncc-cell">
+              <div class="hab-chips"></div>
+              <button class="hab-edit-btn" onclick="openHabModal(document.getElementById('bncc-cell'))">＋ habilidades</button>
+              <div class="hab-print"></div>
+            </div>
           </div>
         </div>
 
@@ -68,7 +168,7 @@
 • Vídeo curto (5 min): entrevista ou imagem de arquivo de cosmonautas/astronautas pioneiros
 • Atividade de pesquisa orientada: perfis de exploradores espaciais (individual ou em dupla)
 • Discussão mediada sobre diversidade e inclusão na história da exploração espacial
-• Ficha de registro com questões de análise</div>
+• Ficha de registra-se com questões de análise</div>
           </div>
         </div>
 
@@ -175,5 +275,153 @@ HARLAND, David M. The Story of Space Station Mir. New York: Springer-Praxis, 200
       </div>
     </div>
   </div>
+  <script>
+    const BNCC_HAB = [
+      { code: 'EM13CNT101', desc: 'Analisar e representar, com ou sem o uso de dispositivos e de aplicativos digitais específicos, as transformações e conservações em sistemas que envolvam quantidade de matéria, de energia e de movimento para realizar previsões sobre seus comportamentos em situações cotidianas e em processos produtivos que priorizem o desenvolvimento sustentável, o uso consciente dos recursos naturais e a preservação da vida em todas as suas formas.' },
+      { code: 'EM13CNT102', desc: 'Realizar previsões, avaliar intervenções e/ou construir protótipos de sistemas mecânicos e/ou elétricos a partir da compreensão e utilização de conceitos das Ciências da Natureza (como forças, substâncias, campos elétricos e magnéticos, ondas, reações químicas, entre outros), valorizando ideias de diferentes povos e culturas na solução de problemas coletivos.' },
+      { code: 'EM13CNT103', desc: 'Utilizar o conhecimento sobre as radiações e suas origens para avaliar as potencialidades e os riscos de sua aplicação em equipamentos de uso cotidiano, na saúde, no ambiente e na geração de energia elétrica.' },
+      { code: 'EM13CNT104', desc: 'Avaliar os benefícios e os riscos à saúde e ao ambiente, considerando a composição, a toxicidade e o uso do produto, do descarte consciente e do reaproveitamento de materiais plásticos, de embalagens, de componentes eletrônicos e pilhas/baterias, entre outros problemas ambientais relevantes.' },
+      { code: 'EM13CNT105', desc: 'Analisar a ciência por trás das lendas urbanas, conteúdos da internet, aplicativos, jogos, notícias, propagandas, entre outros, identificando afirmações baseadas em ciência e avaliando criticamente o papel da mídia na divulgação do conhecimento científico.' },
+      { code: 'EM13CNT106', desc: 'Avaliar, com ou sem o uso de dispositivos e aplicativos digitais, tecnologias e possibilidades de impacto na qualidade de vida, incluindo as relacionadas à saúde, ao monitoramento ambiental, ao controle de doenças, à produção de alimentos e ao desenvolvimento de novos materiais.' },
+      { code: 'EM13CNT201', desc: 'Analisar e utilizar modelos científicos, incluindo teorias, equações e representações gráficas, para descrever, explicar e prever fenômenos e para construir e/ou avaliar soluções para problemas de saúde, ambientais, socioambientais e outros, considerando implicações sociais, econômicas e ambientais.' },
+      { code: 'EM13CNT202', desc: 'Analisar as diversas formas de manifestação da vida em seus diferentes níveis de organização, bem como as condições ambientais favoráveis e os fatores limitantes a elas, com ou sem o uso de dispositivos e aplicativos digitais (como softwares de simulação e de realidade virtual, entre outros).' },
+      { code: 'EM13CNT203', desc: 'Avaliar e prever efeitos de intervenções nos ecossistemas, e seus impactos nos seres vivos e no corpo humano, com base nos mecanismos de manutenção da vida, nos ciclos da matéria e nas transformações e transferências de energia, utilizando representações e simulações sobre tais fatores, com ou sem o uso de dispositivos e aplicativos digitais (como softwares de simulação e de realidade virtual, entre outros).' },
+      { code: 'EM13CNT204', desc: 'Elaborar explicações, previsões e cálculos acerca dos movimentos de objetos na Terra, no Sistema Solar e no Universo com base na análise das interações gravitacionais, com ou sem o uso de dispositivos e aplicativos digitais (como softwares de simulação e de realidade virtual, entre outros).' },
+      { code: 'EM13CNT205', desc: 'Interpretar resultados e lidar com incertezas de forma crítica, produzindo argumentos com base em evidências e dados, e com a clareza de que os conhecimentos científicos são provisórios.' },
+      { code: 'EM13CNT206', desc: 'Discutir a importância da vacinação para a saúde pública, com base em informações sobre a constituição dos organismos e os mecanismos de funcionamento do sistema imunológico, analisando e comparando indicadores epidemiológicos e reconhecendo sua evolução histórica.' },
+      { code: 'EM13CNT207', desc: 'Identificar, analisar e discutir vulnerabilidades vinculadas às vivências e aos desafios contemporâneos aos quais as juventudes estão expostas, considerando os aspectos físico, psicoemocional e social, a fim de desenvolver e divulgar ações de prevenção e de promoção da saúde e do bem-estar.' },
+      { code: 'EM13CNT301', desc: 'Construir questões, elaborar hipóteses, previsões e estimativas, empregar instrumentos de medição e representar e interpretar modelos explicativos, dados e/ou resultados experimentais para construir, avaliar e justificar conclusões no enfrentamento de situações-problema sob uma perspectiva científica.' },
+      { code: 'EM13CNT302', desc: 'Comunicar, para diferentes destinos e finalidades, os conhecimentos e resultados de pesquisas ou projetos de pesquisa, desenvolvidos individualmente ou em grupo, utilizando diferentes mídias e tecnologias digitais de informação e comunicação (TDIC), de forma sistemática, oral e escrita, com clareza, precisão e adequação a tais destinos e fins.' },
+      { code: 'EM13CNT303', desc: 'Interpretar textos de divulgação científica que tratem de temáticas das Ciências da Natureza, disponíveis em diferentes mídias, considerando a apresentação dos dados, tanto na forma de textos como em outras linguagens e para hierarquizar evidências e avaliar conclusões.' },
+      { code: 'EM13CNT304', desc: 'Analisar e debater situações controversas sobre a aplicação de conhecimentos da área de Ciências da Natureza (como o uso de agrotóxicos, a legalização de drogas, o aborto, a eutanásia, a criação de animais para alimentação e a pesquisa com células-tronco) com base em argumentos consistentes, respeitando diferentes pontos de vista.' },
+      { code: 'EM13CNT305', desc: 'Investigar e discutir o uso indevido de conhecimentos das Ciências da Natureza na justificativa de processos de discriminação, como o racismo científico, e para avaliar criticamente esses usos na produção do conhecimento científico atual.' },
+      { code: 'EM13CNT306', desc: 'Avaliar os riscos envolvidos em atividades cotidianas, aplicando conhecimentos das Ciências da Natureza, para justificar o uso de equipamentos e de comportamentos de segurança, como o uso de protetor solar, de máscara, de óculos de segurança e de outros equipamentos de proteção individual (EPI), para manipulação de produtos químicos e quando se pratica atividades físicas, trânsito, práticas laboratoriais, entre outras.' },
+      { code: 'EM13CNT307', desc: 'Analisar as condições de saúde da comunidade, levando em conta fatores como saneamento, moradia, condições nutricionais e exposição a fatores de risco, para propor e/ou apoiar ações de promoção da saúde e do bem-estar.' },
+    ];
+
+    let _habTarget = null;
+    let _habSel    = [];
+
+    function openHabModal(el) {
+      _habTarget = el;
+      _habSel = [...(el._habCodes || [])];
+      document.getElementById('hab-search').value = '';
+      renderHabList('');
+      document.getElementById('hab-desc').innerHTML = '<p class="desc-empty">Passe o mouse sobre um código para ver a descrição.</p>';
+      renderHabSel();
+      document.getElementById('hab-modal').classList.add('open');
+    }
+
+    function closeHabModal() {
+      document.getElementById('hab-modal').classList.remove('open');
+    }
+
+    function confirmHabModal() {
+      if (_habTarget) {
+        _habTarget._habCodes = [..._habSel];
+        renderHabChips(_habTarget);
+      }
+      closeHabModal();
+    }
+
+    function renderHabList(q) {
+      const list = document.getElementById('hab-list');
+      list.innerHTML = '';
+      const lq = q.toLowerCase();
+      const bnccSet = new Set(BNCC_HAB.map(h => h.code));
+      const filtered = lq
+        ? BNCC_HAB.filter(h => h.code.toLowerCase().includes(lq) || h.desc.toLowerCase().includes(lq))
+        : BNCC_HAB;
+      filtered.forEach(h => appendHabItem(list, h.code, _habSel.includes(h.code),
+        () => { document.getElementById('hab-desc').innerHTML = `<div class="desc-code">${h.code}</div><div class="desc-text">${h.desc}</div>`; },
+        checked => {
+          if (checked) { if (!_habSel.includes(h.code)) _habSel.push(h.code); }
+          else _habSel = _habSel.filter(c => c !== h.code);
+          renderHabSel();
+        }
+      ));
+      const customs = _habSel.filter(c => !bnccSet.has(c));
+      if (customs.length > 0) {
+        const sep = document.createElement('div');
+        sep.className = 'hab-item-sep';
+        sep.textContent = 'Códigos personalizados';
+        list.appendChild(sep);
+        customs.filter(c => !lq || c.toLowerCase().includes(lq)).forEach(code => {
+          appendHabItem(list, code, true,
+            () => { document.getElementById('hab-desc').innerHTML = `<div class="desc-code">${code}</div><p class="desc-empty">Código personalizado — sem descrição BNCC.</p>`; },
+            checked => {
+              if (!checked) _habSel = _habSel.filter(c => c !== code);
+              renderHabList(document.getElementById('hab-search').value);
+              renderHabSel();
+            }
+          );
+        });
+      }
+    }
+
+    function appendHabItem(list, code, checked, onHover, onChange) {
+      const item = document.createElement('div');
+      item.className = 'hab-item' + (checked ? ' active' : '');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = checked;
+      cb.onchange = () => { item.classList.toggle('active', cb.checked); onChange(cb.checked); };
+      const lbl = document.createElement('span');
+      lbl.className = 'hab-item-code';
+      lbl.textContent = code;
+      item.appendChild(cb);
+      item.appendChild(lbl);
+      item.onmouseenter = onHover;
+      list.appendChild(item);
+    }
+
+    function renderHabSel() {
+      document.getElementById('hab-sel-txt').textContent = _habSel.length
+        ? 'Selecionadas: ' + _habSel.join('; ')
+        : 'Nenhuma habilidade selecionada.';
+    }
+
+    function addCustomHab() {
+      const input = document.getElementById('hab-custom');
+      const code  = input.value.trim().toUpperCase();
+      if (!code || _habSel.includes(code)) { input.value = ''; return; }
+      _habSel.push(code);
+      renderHabList(document.getElementById('hab-search').value);
+      renderHabSel();
+      input.value = '';
+    }
+
+    function renderHabChips(el) {
+      const chips    = el.querySelector('.hab-chips');
+      const printDiv = el.querySelector('.hab-print');
+      const codes    = el._habCodes || [];
+      chips.innerHTML = '';
+      codes.forEach(code => {
+        const chip = document.createElement('span');
+        chip.className = 'hab-chip';
+        const lbl = document.createElement('span');
+        lbl.textContent = code;
+        const rm = document.createElement('button');
+        rm.className = 'hab-chip-rm';
+        rm.title = 'Remover';
+        rm.textContent = '×';
+        rm.onclick = e => {
+          e.stopPropagation();
+          el._habCodes = el._habCodes.filter(c => c !== code);
+          renderHabChips(el);
+        };
+        chip.appendChild(lbl);
+        chip.appendChild(rm);
+        chips.appendChild(chip);
+      });
+      printDiv.textContent = codes.join('\n');
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHabModal(); });
+
+    // Initialize BNCC cell
+    const _bc = document.getElementById('bncc-cell');
+    if (_bc) _bc._habCodes = [];
+  </script>
 </body>
 </html>
