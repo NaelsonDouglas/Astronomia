@@ -44,6 +44,7 @@
     }
     .escola-ozoria    { background: #ddeaff; color: #1e4d8c; }
     .escola-fernandina { background: #e8f7ed; color: #1a6b37; }
+    .escola-ozoria-seduc { background: #fef3d0; color: #7a4f00; }
 
     .card-disciplina { font-size: 13pt; font-weight: bold; color: #111; margin-bottom: 2px; }
     .card-turma      { font-size: 10pt; color: #555; margin-bottom: 8px; }
@@ -117,7 +118,7 @@
         escola:     'Fernandina',
         titulo:     'Termoquímica',
         periodo:    '2º Bimestre 2026',
-        href:       'quimica/serie_02/aulas_html/fernandina/plano-2bimestre-2026-turma-2-01-I.html',
+        href:       'quimica/serie_02/aulas_html/fernandina/index.html',
       },
       {
         disciplina: 'Química',
@@ -157,14 +158,64 @@
         escola:     'Fernandina',
         titulo:     'Modelagem Matemática',
         periodo:    '2º Bimestre 2026',
-        href:       'tac/serie_02/aulas_html/fernandina/plano-2bimestre-2026-turma-2-01-I.html',
+        href:       'tac/serie_02/aulas_html/fernandina/index.html',
+      },
+      {
+        disciplina: 'Química',
+        turma:      '1ª Série (1-01 M/V)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Separação de Misturas — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
+      },
+      {
+        disciplina: 'Química',
+        turma:      '2ª Série (2-01 M)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Termoquímica — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
+      },
+      {
+        disciplina: 'Química',
+        turma:      '3ª Série (3-01 M)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Hidrocarbonetos — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
+      },
+      {
+        disciplina: 'Química',
+        turma:      '3ª Série (3-01 V)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Hidrocarbonetos — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
+      },
+      {
+        disciplina: 'TAC',
+        turma:      '1ª Série (1-01 V)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Letramento Digital — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
+      },
+      {
+        disciplina: 'PIT',
+        turma:      '3ª Série (3-01 V)',
+        escola:     'Ozória-Seduc',
+        titulo:     'Resíduos e Território — 3 aulas detalhadas',
+        periodo:    '2º Bimestre 2026',
+        href:       'ozoria_seduc/index.html',
       },
     ];
     // ───────────────────────────────────────────────────────────────────────
 
     function escolaClass(escola) {
-      return escola.toLowerCase() === 'ozória' || escola.toLowerCase() === 'ozoria'
-        ? 'escola-ozoria' : 'escola-fernandina';
+      const e = escola.toLowerCase();
+      if (e === 'ozória-seduc' || e === 'ozoria-seduc') return 'escola-ozoria-seduc';
+      if (e === 'ozória' || e === 'ozoria') return 'escola-ozoria';
+      return 'escola-fernandina';
     }
 
     function renderCard(p) {
